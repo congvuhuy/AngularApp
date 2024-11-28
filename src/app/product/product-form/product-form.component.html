@@ -1,0 +1,35 @@
+<div class="form-container">
+  <h1 *ngIf="mode === 'add'">Thêm Sản Phẩm</h1>
+  <h1 *ngIf="mode === 'edit'">Sửa Sản Phẩm</h1>
+  <form (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label for="productName">Product name</label>
+      <input type="text" id="productName" [(ngModel)]="productName" name="productName" required>
+    </div>
+    <div class="form-group">
+      <label for="ProductCategoryId">Danh Mục Sản Phẩm</label>
+      <select id="ProductCategoryId" [(ngModel)]="ProductCategoryId" name="ProductCategoryId" required>
+        <option *ngFor="let category of productCategories" [value]="category.id">{{ category.name }}
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="inStock">In Stock</label>
+      <input type="number" id="inStock" [(ngModel)]="inStock" name="inStock">
+    </div>
+    <div class="form-group">
+      <label for="unitSold">Unit Sold</label>
+      <input type="number" id="unitSold" [(ngModel)]="unitSold" name="unitSold"  >
+    </div>
+    <div class="form-group">
+      <label for="exprireDate">Exprire Date</label>
+      <input type="date" id="exprireDate" [(ngModel)]="exprireDate" name="productDescription"  >
+    </div>
+
+    <div class="form-group">
+      <button class="btn btn-outline-success" type="submit">{{ mode === 'add' ? 'Thêm Sản Phẩm' : 'Sửa Sản Phẩm' }}</button>
+      <button class="btn btn-outline-danger" type="button" (click)="closeForm.emit()">Hủy</button>
+    </div>
+  </form>
+</div>

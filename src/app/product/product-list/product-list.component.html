@@ -1,0 +1,122 @@
+<div class="row">
+<!--product list-->
+<div class="col-8">
+  <div class="card mb-4">
+    <div class="card-header pb-0">
+      <h6>Product table</h6>
+    </div>
+    <div class="card-body px-0 pt-0 pb-2">
+      <div class="table-responsive p-0">
+        <table class="table align-items-center mb-0">
+          <thead>
+          <tr>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Product Name</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Category</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ">Unit Sold</th>
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">In Stock</th>
+            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Exprire Date</th>
+            <th colspan="2" class="text-secondary opacity-7 ">
+              <a class="btn btn-outline-success" (click)="openForm('add', null)">Create</a>
+            </th>
+          </tr>
+          </thead>
+          <tbody *ngFor="let pro of productSource">
+          <tr id="pro{{pro.productCode}}" >
+            <td>
+              <div class="d-flex px-2 py-1">
+                <div class="d-flex flex-column justify-content-center">
+                  <h6 class="mb-0 text-sm">{{pro.productName}}</h6>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="d-flex px-2 py-1">
+                <div class="d-flex flex-column justify-content-center">
+                  <h6 class="mb-0 text-sm">{{getProductCategoryName(pro.ProductCategoryId )}}</h6>
+                </div>
+              </div>
+            </td>
+            <td>
+              <p class="text-xs font-weight-bold mb-0">{{pro.unitSold}}</p>
+<!--              <p class="text-xs text-secondary mb-0">Organization</p>-->
+            </td>
+            <td class="align-middle text-center text-sm">
+              <span class="badge badge-sm bg-gradient-success">{{pro.inStock}}</span>
+            </td>
+            <td class="align-middle text-center">
+              <span class="text-secondary text-xs font-weight-bold">{{pro.exprireDate}}</span>
+            </td>
+            <td class="">
+              <a href="#" (click)="openForm('edit', pro)" class="btn btn-outline-info text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                Edit
+              </a>
+            </td>
+            <td class="">
+            <a href="#" (click)="deleteProduct(pro.productCode)"  class="text-secondary btn btn-outline-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+              Delete
+            </a>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <app-product-form *ngIf="showForm" [product]="selectedProduct" [mode]="formMode" (closeForm)="closeForm()" (formSubmit)="handleFormSubmit($event)"></app-product-form>
+
+</div>
+
+  <!--product category-->
+<div class="col-4">
+  <div class="card mb-4">
+    <div class="card-header pb-0">
+      <h6>Product Category table</h6>
+    </div>
+    <div class="card-body px-0 pt-0 pb-2">
+      <div class="table-responsive p-0">
+        <table class="table align-items-center mb-0">
+          <thead>
+          <tr>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">id</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Product Category Id</th>
+            <th colspan="2" class="text-secondary opacity-7 ">
+              <a class="btn btn-outline-success" (click)="openForm('add', null)">Create</a>
+            </th>
+          </tr>
+          </thead>
+          <tbody *ngFor="let proCate of productCategorySource">
+          <tr id="pro{{proCate.id}}" >
+            <td>
+              <div class="d-flex px-2 py-1">
+                <div class="d-flex flex-column justify-content-center">
+                  <h6 class="mb-0 text-sm">{{proCate.id}}</h6>
+
+                </div>
+              </div>
+            </td>
+            <td>
+              <p class="text-xs font-weight-bold mb-0">{{proCate.name}}</p>
+              <!--              <p class="text-xs text-secondary mb-0">Organization</p>-->
+            </td>
+
+            <td class="">
+              <a href="#"  class="btn btn-outline-info text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                Edit
+              </a>
+            </td>
+            <td class="">
+              <a href="#" (click)="deleteProductCategory(proCate.id)"  class="text-secondary btn btn-outline-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                Delete
+              </a>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!--<app-product-form *ngIf="showForm" [product]="selectedProduct" [mode]="formMode" (closeForm)="closeForm()" (formSubmit)="handleFormSubmit($event)"></app-product-form>-->
+</div>

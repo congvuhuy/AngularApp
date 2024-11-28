@@ -1,3 +1,4 @@
 <app-layout-contain>
-
+<app-product-list *ngIf="menuName==='product'"> </app-product-list>
+  <app-profile *ngIf="menuName==='account'"></app-profile>
 </app-layout-contain>
