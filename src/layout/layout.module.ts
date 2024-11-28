@@ -4,7 +4,7 @@ import { LayoutContainComponent } from './layout-contain/layout-contain.componen
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import {RouterLink, RouterLinkActive} from "@angular/router";
+import {RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
 
 
 
@@ -21,7 +21,8 @@ import {RouterLink, RouterLinkActive} from "@angular/router";
   imports: [
     CommonModule,
     RouterLinkActive,
-    RouterLink
+    RouterLink,
+    RouterOutlet
   ]
 })
 export class LayoutModule { }

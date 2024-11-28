@@ -33,9 +33,9 @@ export class LoginService {
   Logout():void{
     this.status=false;
   }
-  isAuthenticated():boolean{
-    return this.status;
-  }
+  // isAuthenticated():boolean{
+  //   return this.status;
+  // }
   constructor() { }
 
 }
