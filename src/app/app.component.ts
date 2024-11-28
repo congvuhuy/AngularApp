@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {MenuName,MenuService} from "./service/menu.service";
 
 @Component({
   selector: 'app-root',
@@ -8,11 +7,9 @@ import {MenuName,MenuService} from "./service/menu.service";
 })
 export class AppComponent {
   title = 'myApp';
-  menuName : MenuName="dashboard";
-  constructor(private menuService: MenuService) {
-    this.menuService.$menuName.subscribe(res=>{
-      this.menuName = res;
-    })
+  loginValue: boolean =true;
+  constructor() {
+
   }
 
 }

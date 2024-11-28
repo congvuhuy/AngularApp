@@ -1,6 +1,7 @@
 import {Component, OnInit,input,output} from '@angular/core';
 import {ProductCategories, Products} from "../../model/Model";
 import {ProductService} from "../../service/product.service";
+import {Event} from "@angular/router";
 
 @Component({
   selector: 'app-product-list',
@@ -63,12 +64,13 @@ export class ProductListComponent implements OnInit {
   formMode: 'add' | 'edit' = 'add';
 
   openForm(mode: 'add' | 'edit', product: Products | null = null) {
+
     this.showForm = true;
     this.formMode = mode;
     this.selectedProduct = product;
   }
 
-  closeForm() { this.showForm = false; this.selectedProduct = null; }
+  closeForm() { this.showForm = false; this.selectedProduct = null;}
 
   handleFormSubmit(product: Products) {
     if (this.formMode === 'add') {

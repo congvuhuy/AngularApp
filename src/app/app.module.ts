@@ -6,21 +6,53 @@ import { AppComponent } from './app.component';
 import {LayoutModule} from "../layout/layout.module";
 import {ProductModule} from "./product/product.module";
 import {AccountModule} from "./account/account.module";
-import {FormsModule} from "@angular/forms";
 import {ProductListComponent} from "./product/product-list/product-list.component";
-import {ProductFormComponent} from "./product/product-form/product-form.component";
+import {RouterModule, Routes} from "@angular/router";
+import {ProfileComponent} from "./account/profile/profile.component";
+import {LoginComponent} from "./account/login/login.component";
+import {LayoutContainComponent} from "../layout/layout-contain/layout-contain.component";
+import {LayoutLoginSignupComponent} from "./account/layout-login-signup/layout-login-signup.component";
 
+const routes: Routes=[
+  // {
+  //   path:'',
+  //   component:LayoutContainComponent,
+  //   children:[
+  //     {path:'product',component:ProductListComponent},
+  //     {path:'profile',component:ProfileComponent},
+  //   ]
+  // },
+  // {
+  //   path:'',
+  //   component:LayoutLoginSignupComponent,
+  //   children:[
+  //     {path:'',redirectTo:'login',pathMatch:'full'},
+  //     {path:'login',component:LoginComponent},
+  //
+  //   ]
+  //
+  // }
+  {path:'product',component:ProductListComponent},
+  {path:'profile',component:ProfileComponent},
+  {path:'',redirectTo:'login',pathMatch:'full'},
+  {path:'login',component:LoginComponent}
+
+]
 @NgModule({
-  declarations: [
-    AppComponent,
 
+  declarations: [
+    AppComponent
   ],
-  imports: [
+  imports:[
+    [RouterModule.forRoot(routes)],
     LayoutModule,
     BrowserModule,
     AppRoutingModule,
     ProductModule,
     AccountModule
+  ],
+  exports:[
+    [RouterModule],
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,8 @@
 <app-layout-contain>
-<app-product-list *ngIf="menuName==='product'"> </app-product-list>
-  <app-profile *ngIf="menuName==='account'"></app-profile>
+  <router-outlet></router-outlet>
 </app-layout-contain>
+<!--
+<app-layout-login-signin *ngIf="loginValue === false">
+  <app-signin></app-signin>
+</app-layout-login-signin>
+-->
