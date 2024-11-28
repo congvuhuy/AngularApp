@@ -93,6 +93,10 @@ export class ProductService {
     return this.listProduct;
   }
   // Delete
+    deleteProdcutByCateId(cateId :number):Products[]{
+    this.listProduct=this.listProduct.filter(p=>p.ProductCategoryId!==cateId)
+    return this.listProduct;
+  }
   deleteProduct(productCode: string): Products[] {
     this.listProduct = this.listProduct.filter(p => p.productCode !== productCode);
     return this.listProduct;

@@ -79,9 +79,9 @@
           <thead>
           <tr>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">id</th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Product Category Id</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Category Name</th>
             <th colspan="2" class="text-secondary opacity-7 ">
-              <a class="btn btn-outline-success" (click)="openForm('add', null)">Create</a>
+              <!--<a class="btn btn-outline-success" (click)="openForm('add', null)">Create</a>-->
             </th>
           </tr>
           </thead>
@@ -97,14 +97,14 @@
             </td>
             <td>
               <p class="text-xs font-weight-bold mb-0">{{proCate.name}}</p>
-              <!--              <p class="text-xs text-secondary mb-0">Organization</p>-->
+              <!--<p class="text-xs text-secondary mb-0">Organization</p>-->
             </td>
-
+            <!--
             <td class="">
               <a href="#"  class="btn btn-outline-info text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                 Edit
               </a>
-            </td>
+            </td>-->
             <td class="">
               <a href="#" (click)="deleteProductCategory(proCate.id)"  class="text-secondary btn btn-outline-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                 Delete

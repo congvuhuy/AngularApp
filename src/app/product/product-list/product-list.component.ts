@@ -52,6 +52,8 @@ export class ProductListComponent implements OnInit {
   // }
   deleteProductCategory(productCategoryId: number) {
     this.prService.deleteProductCategory(productCategoryId);
+    this.prService.deleteProdcutByCateId(productCategoryId);
+    this.loadProducts();
     this.loadProductCategory();
   }
   //product
