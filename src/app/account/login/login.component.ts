@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import {LoginService} from "../../service/login.service";
 import {Router} from "@angular/router";
+import {ApiService} from "../../service/api.service";
+import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
 
 @Component({
   selector: 'app-login',
@@ -10,17 +12,22 @@ import {Router} from "@angular/router";
 export class LoginComponent {
   username: string='';
   password: string='';
-
-  constructor(private loginService: LoginService, private router: Router) {
+  user_access_token: string=''
+  constructor(private apiService: ApiService, private router: Router) {
   }
   login(username: string, password: string) {
-      let result=this.loginService.Login(username, password);
-    console.log(result);
-      if(result){
-        alert("Đăng nhập thành công");
-        this.router.navigate(['/dashboard']);
-      }else {
-        alert('Invalid username or password');
+    this.apiService.login(username, password).subscribe(
+      res=>{
+        if(res.access_token != null){
+          this.user_access_token=res.access_token
+          this.router.navigate(['/dashboard'])
+          localStorage.setItem('primary_token',this.user_access_token)
+        }
+      },
+      error => {
+        alert("loi dang nhap")
       }
+    )
   }
 }
+

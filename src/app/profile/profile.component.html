@@ -1,0 +1,30 @@
+<div>
+  <h2>Profile Form</h2>
+  <form (ngSubmit)="submitProfile()">
+    <div>
+      <label for="fullName">Họ và tên</label>
+      <input id="fullName" [(ngModel)]="fullName" name="fullName">
+    </div>
+    <div>
+      <label for="dateOfBirth">Ngày sinh</label>
+      <input type="date" id="dateOfBirth" [(ngModel)]="dateOfBirth" name="dateOfBirth">
+    </div>
+    <div>
+      <label for="goitinh">Giới tính</label>
+      <input type="checkbox" id="goitinh" [(ngModel)]="goiTinh" name="goiTinh">
+    </div>
+    <div>
+      <label for="address">Địa chỉ:</label>
+      <input id="address" [(ngModel)]="address" name="address">
+    </div>
+    <div>
+      <label for="email">Email:</label>
+      <input id="email" [(ngModel)]="email" name="email">
+    </div>
+    <div>
+      <label for="phone">Điện thoại:</label>
+      <input id="phone" [(ngModel)]="phone" name="phone">
+    </div>
+    <button type="submit">Lưu</button>
+  </form>
+</div>

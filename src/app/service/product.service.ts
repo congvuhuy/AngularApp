@@ -3,9 +3,7 @@ import {Products} from "../model/Model";
 import {ProductCategories} from "../model/Model";
 
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ProductService {
   listProductsCategory : ProductCategories[]=[{
       id:1,

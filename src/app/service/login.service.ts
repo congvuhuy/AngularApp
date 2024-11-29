@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import {Account} from "../model/Model";
+import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'any'
 })
 export class LoginService {
   listAccounts: Account[]=[{
@@ -21,6 +23,7 @@ export class LoginService {
     password:'123@',
     roleId:2
   }]
+  // private accountApi="http://test.nghiencuukhoahoc.com.vn/api/app/account/get-account-bootstrap"
 
   status:boolean = false;
   Login(username: string, password:string) :boolean{
@@ -36,6 +39,10 @@ export class LoginService {
   // isAuthenticated():boolean{
   //   return this.status;
   // }
-  constructor() { }
+  // constructor(private http: HttpClient) { }
+  // getData(): Observable<any> {
+  //   return this.http.get<any>(this.accountApi);
+  //
+  // }
 
 }

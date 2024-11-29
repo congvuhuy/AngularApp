@@ -8,11 +8,15 @@ import {ProductModule} from "./product/product.module";
 import {AccountModule} from "./account/account.module";
 import {ProductListComponent} from "./product/product-list/product-list.component";
 import {RouterModule, Routes} from "@angular/router";
-import {ProfileComponent} from "./account/profile/profile.component";
 import {LoginComponent} from "./account/login/login.component";
 import {LayoutContainComponent} from "../layout/layout-contain/layout-contain.component";
 import {LayoutLoginSignupComponent} from "./account/layout-login-signup/layout-login-signup.component";
 import { DashboardComponent } from './dashboard/dashboard.component';
+import {SignupComponent} from "./account/signup/signup.component";
+import { ProfileComponent } from './profile/profile.component';
+import {HttpClientModule} from "@angular/common/http";
+import {FormsModule,ReactiveFormsModule} from "@angular/forms";
+import {ApiService} from "./service/api.service";
 
 const routes: Routes=[
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -22,7 +26,7 @@ const routes: Routes=[
     children:[
       {path:'dashboard',component:DashboardComponent},
       {path:'product',component:ProductListComponent},
-      {path:'profile',component:ProfileComponent},
+      {path:'profile',component:ProfileComponent}
     ]
   },
   {
@@ -31,6 +35,7 @@ const routes: Routes=[
     children:[
       // {path:'',redirectTo:'login',pathMatch:'full'},
       {path:'login',component:LoginComponent},
+      {path:'signup',component: SignupComponent},
 
     ]
 
@@ -46,20 +51,25 @@ const routes: Routes=[
 
   declarations: [
     AppComponent,
-    DashboardComponent
+    ProfileComponent,
   ],
-  imports:[
+  imports: [
     [RouterModule.forRoot(routes)],
     LayoutModule,
     BrowserModule,
     AppRoutingModule,
     ProductModule,
-    AccountModule
+    AccountModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports:[
     [RouterModule],
   ],
-  providers: [],
+  providers: [
+    ApiService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
