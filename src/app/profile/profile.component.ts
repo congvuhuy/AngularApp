@@ -1,57 +1,121 @@
-import {Component, OnInit} from '@angular/core';
-import {LoginService} from "../service/login.service";
-import {ApiService} from "../service/api.service";
+import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../service/api.service';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.scss'
+  styleUrls: ['./profile.component.scss']
 })
+export class ProfileComponent implements OnInit {
+  userId:string =''
+  name: string='';
+  fullName: string='';
+  ngaySinh: string='';
+  gioiTinh: string='';
+  diaChi: string='';
+  maTinh: string='';
+  maHuyen: string='';
+  maXa: string='';
+  phoneNumber: string='';
+  email: string='';
 
+  data:{}={};
+  listtinh: any[] = [];
+  listhuyen: any[] = [];
+  listxa: any[] = [];
+  token: string | null = '';
 
-export class ProfileComponent implements OnInit{
-  fullName: string = '';
-  dateOfBirth: string = '';
-  goiTinh: boolean = false;
-  address: string = '';
-  email: string = '';
-  phone: string = '';
-  constructor(private apiService: ApiService) {
-  }
+  constructor(private apiService: ApiService) { }
+
   ngOnInit(): void {
+    this.token = localStorage.getItem('access_token');
+
     this.apiService.getAccountBootstrap().subscribe(
       res=>{
-        console.log(res.userSession)
-        this.fullName = res.userSession.fullName;
-        this.dateOfBirth = res.userSession.ngaySinh;
-        this.goiTinh = res.userSession.goiTinh;
-        this.address = res.userSession.address;
-        this.email = res.userSession.email;
-        this.phone = res.userSession.phoneNumber;
+        console.log(res)
+        this.userId=res.id;
+        this.name=res.userSession.name;
+        this.fullName=res.userSession.fullName;
+        this.ngaySinh= this.convertToDate(res.userSession.ngaySinh);
+        this.gioiTinh=res.userSession.gioiTinh.toString();
+        this.diaChi=res.userSession.diaChi;
+        this.maTinh=res.userSession.maTinh;
+        this.maHuyen=res.userSession.maHuyen;
+        this.maXa=res.userSession.maXa;
+        this.phoneNumber=res.userSession.phoneNumber;
+        this.email= res.userSession.email;
+        console.log(this.ngaySinh)
       }
     )
+    this.apiService.getTinh().subscribe(
+      res => {
+        this.listtinh = res;
+      },
+      err => {
+        console.error('', err);
+      }
+    );
   }
-  submitProfile(): void {
-    console.log('Profile data:',
-      {
-        fullName: this.fullName,
-        dateOfBirth: this.dateOfBirth,
-        goiTinh: this.goiTinh,
-        address: this.address,
-        email: this.email,
-        phone: this.phone
-      });
+  convertToDate(isoString: string): string {
+    return new Date(isoString).toISOString().split('T')[0];
+  }
+  onTinhChange(): void {
+    if (this.maTinh) {
+      this.apiService.getHuyen(this.maTinh).subscribe(
+        res => {
+          this.listhuyen = res;
+          this.listxa = [];
+        },
+        err => {
+          console.error('', err);
+        }
+      );
+    }
   }
 
-  // data:any ;
-  // ngOnInit(): void {
-  //   this.loginService.getData().subscribe( (response) => {
-  //     this.data = response;
-  //     console.log(this.data);
-  //     },
-  //     (error) => {
-  //     console.error('There was an error!', error);
-  //   }
-  //   );
-  // }
+  onHuyenChange(): void {
+    if (this.maHuyen) {
+      this.apiService.getXa(this.maHuyen).subscribe(
+        res => {
+          this.listxa = res;
+        },
+        err => {
+          console.error('', err);
+        }
+      );
+    }
+  }
+
+  submitProfile() {
+    this.data={
+      userId: this.userId,
+      name: this.name,
+      avatarDocumentId: null,
+      fullName:this.fullName,
+      ngaySinh:new Date(this.ngaySinh),
+      gioiTinh:Number(this.gioiTinh),
+      diaChi:this.diaChi,
+      phoneNumber:this.phoneNumber,
+      email:this.email,
+      maTinh: this.maTinh,
+      maHuyen: this.maHuyen,
+      maXa: this.maXa,
+    }
+
+    if (this.token !=null && this.token != '') {
+      console.log(this.data)
+      this.apiService.updateAccountInfo(this.data,this.token).subscribe(
+        res=>{
+          alert('thành công')
+        },
+        err=>{
+          alert('thất bại')
+        }
+      )
+    }else(
+      console.log('khong co token')
+    )
+
+  }
 }

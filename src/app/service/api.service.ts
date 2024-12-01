@@ -24,28 +24,9 @@ export class ApiService {
       headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
     });
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   logout(): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/app/account/logout`, {});
   }
-
   updateAccountInfo(data: any, token: string): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
@@ -74,6 +55,5 @@ export class ApiService {
     formData.append('files', file);
     return this.http.post<any>(`${this.baseUrl}/import-export/document/upload-to-cache`, formData);
   }
-
 
 }

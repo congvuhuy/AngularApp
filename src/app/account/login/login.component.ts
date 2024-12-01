@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {LoginService} from "../../service/login.service";
+
 import {Router} from "@angular/router";
 import {ApiService} from "../../service/api.service";
 import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
@@ -21,7 +21,7 @@ export class LoginComponent {
         if(res.access_token != null){
           this.user_access_token=res.access_token
           this.router.navigate(['/dashboard'])
-          localStorage.setItem('primary_token',this.user_access_token)
+          localStorage.setItem('access_token',this.user_access_token)
         }
       },
       error => {

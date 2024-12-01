@@ -1,30 +1,61 @@
-<div>
-  <h2>Profile Form</h2>
-  <form (ngSubmit)="submitProfile()">
-    <div>
-      <label for="fullName">Họ và tên</label>
-      <input id="fullName" [(ngModel)]="fullName" name="fullName">
+<div class="container card col-md-6 mt-5">
+  <h2>Your Profile</h2>
+  <form (ngSubmit)="submitProfile()" class="row g-3">
+    <div class="col-md-6 align-items-center justify-content-between">
+      <label for="fullName" class="form-label">Họ và Tên</label>
+      <input id="fullName" type="text" [(ngModel)]="name" name="fullName" class="form-control" >
     </div>
-    <div>
-      <label for="dateOfBirth">Ngày sinh</label>
-      <input type="date" id="dateOfBirth" [(ngModel)]="dateOfBirth" name="dateOfBirth">
+<!--    <div class="col-md-6 align-items-center justify-content-between">-->
+<!--      <label for="name" class="form-label">Tên hiển thị</label>-->
+<!--      <input id="name" type="text" [(ngModel)]="name" name="name" class="form-control" >-->
+<!--    </div>-->
+    <div class="col-md-6 align-items-center justify-content-between">
+      <label for="ngaySinh" class="form-label">Ngày sinh</label>
+      <input id="ngaySinh"  type="date"  [(ngModel)]='ngaySinh'  name="ngaySinh" class="form-control" >
     </div>
-    <div>
-      <label for="goitinh">Giới tính</label>
-      <input type="checkbox" id="goitinh" [(ngModel)]="goiTinh" name="goiTinh">
+    <div class="col-md-12 align-items-center justify-content-between">
+      <label for="gioiTinh" class="form-label">Giới tính</label>
+      <label>
+        <input  type="radio" id="gioiTinh" [(ngModel)]="gioiTinh" name="gioiTinh" value="0" class="" >
+        Nam
+      </label>
+      <label>
+        <input  type="radio" id="gioiTinh" [(ngModel)]="gioiTinh" name="gioiTinh" value="1"  class="" >
+        Nữ
+      </label>
     </div>
-    <div>
-      <label for="address">Địa chỉ:</label>
-      <input id="address" [(ngModel)]="address" name="address">
+    <div class="col-md-6 align-items-center justify-content-between">
+      <label for="address" class="form-label">Địa chỉ</label>
+      <input id="address" type="text" [(ngModel)]="diaChi" name="address" class="form-control" >
     </div>
-    <div>
-      <label for="email">Email:</label>
-      <input id="email" [(ngModel)]="email" name="email">
+    <div class="col-md-6 align-items-center justify-content-between">
+      <label for="tinh" class="form-label">Tỉnh</label>
+      <select id="tinh" [(ngModel)]="maTinh" name="tinh" (change)="onTinhChange()" class="form-control">
+        <option *ngFor="let itemTinh of listtinh" [value]="itemTinh.value">{{itemTinh.displayText}}</option>
+      </select>
     </div>
-    <div>
-      <label for="phone">Điện thoại:</label>
-      <input id="phone" [(ngModel)]="phone" name="phone">
+    <div class="col-md-6 align-items-center justify-content-between">
+      <label for="huyen" class="form-label">Huyện</label>
+      <select id="huyen" [(ngModel)]="maHuyen" name="huyen" (change)="onHuyenChange()" class="form-control">
+        <option *ngFor="let itemHuyen of listhuyen" [value]="itemHuyen.value">{{itemHuyen.displayText}}</option>
+      </select>
     </div>
-    <button type="submit">Lưu</button>
+    <div class="col-md-6 align-items-center justify-content-between">
+      <label for="xa" class="form-label">Xã</label>
+      <select id="xa" [(ngModel)]="maXa" name="xa" class="form-control">
+        <option *ngFor="let itemXa of listxa" [value]="itemXa.value">{{itemXa.displayText}}</option>
+      </select>
+    </div>
+    <div class="col-md-6 align-items-center justify-content-between">
+      <label for="phoneNumber" class="form-label">Số điện thoại</label>
+      <input id="phoneNumber" type="text" [(ngModel)]="phoneNumber" name="phoneNumber" class="form-control" >
+    </div>
+    <div class="col-md-6 align-items-center justify-content-between">
+      <label for="email" class="form-label">Email</label>
+      <input id="email" type="text" [(ngModel)]="email" name="email" class="form-control" >
+    </div>
+    <div class="col-md-12">
+      <button type="submit" class="btn btn-primary">Lưu</button>
+    </div>
   </form>
 </div>

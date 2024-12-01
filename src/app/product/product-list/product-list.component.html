@@ -63,7 +63,8 @@
       </div>
     </div>
   </div>
-  <app-product-form *ngIf="showForm" [product]="selectedProduct" [mode]="formMode" (closeForm)="closeForm()" (formSubmit)="handleFormSubmit($event)"></app-product-form>
+  <div class="overlay" *ngIf="showForm" (click)="closeForm()"></div>
+  <app-product-form class="form-product" *ngIf="showForm" [product]="selectedProduct" [mode]="formMode" (closeForm)="closeForm()" (formSubmit)="handleFormSubmit($event)"></app-product-form>
 
 </div>
 
