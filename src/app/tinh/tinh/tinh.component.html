@@ -1,0 +1,77 @@
+<!-- tinh.component.html -->
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-12">
+      <div class="card mb-4">
+        <div class="card-header pb-0">
+          <h6>Quản lý tỉnh</h6>
+        </div>
+        <div class="card-body px-0 pt-0 pb-2">
+          <div class="table-responsive p-0">
+            <table class="table align-items-center mb-0">
+              <thead>
+              <tr>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Stt</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Mã tỉnh</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tên tỉnh</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Cấp</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Miền</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Vùng địa lý</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Vùng sinh thái</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hoạt động</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><button class="btn btn-primary btn-sm" (click)="create()">Create</button></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let itemTinh of tinhList; let i =index">
+                <td>
+                  <div class="d-flex px-2 py-1">
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-sm">{{currentPage*10 + i+1}}</h6>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <p class="text-xs font-weight-bold mb-0">{{itemTinh.maTinh}}</p>
+                </td>
+                  <td>
+                      <p class="text-xs font-weight-bold mb-0">{{itemTinh.tenTinh}}</p>
+                  </td>
+                <td>
+                  <p class="text-xs font-weight-bold mb-0 text-center">{{itemTinh.cap}}</p>
+                </td>
+                <td>
+                  <p class="text-xs font-weight-bold mb-0">{{itemTinh.vungMien}}</p>
+                </td>
+                <td>
+                  <p class="text-xs font-weight-bold mb-0">{{itemTinh.vungDiaLy}}</p>
+                </td>
+                <td>
+                  <p class="text-xs font-weight-bold mb-0">{{itemTinh.vungSinhThai}}</p>
+                </td>
+                <td class="align-middle text-center text-sm">
+                  <span *ngIf="itemTinh.isActive" class="badge badge-sm bg-gradient-success">Active</span>
+                    <span *ngIf="!itemTinh.isActive" class="badge badge-sm bg-gradient-danger">Off</span>
+                </td>
+                <td class="align-middle">
+                  <button class="btn btn-secondary btn-sm" (click)="edit(itemTinh)">Edit</button>
+                  <button class="btn btn-danger btn-sm" (click)="delete(itemTinh.id)">Delete</button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+        <button class="btn " (click)="prevPage()" [disabled]="skipCount === 0">Previous</button>
+        <button class="btn" (click)="nextPage()">Next</button>
+    </div>
+  </div>
+
+    <div class="overlay" *ngIf="showform"></div>
+  <div class="row form-tinh" *ngIf="showform">
+    <div class="col-12">
+      <app-form-tinh [tinhData]="selectedTinh" (closeForm)="closeForm()"></app-form-tinh>
+    </div>
+  </div>
+</div>

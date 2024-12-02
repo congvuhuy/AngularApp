@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 import {Router} from "@angular/router";
 import {ApiService} from "../../service/api.service";
@@ -9,7 +9,7 @@ import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
   username: string='';
   password: string='';
   user_access_token: string=''
@@ -29,6 +29,12 @@ export class LoginComponent {
         alert("loi dang nhap")
       }
     )
+  }
+
+  ngOnInit(): void {
+    // if(localStorage.getItem('access_token')){
+    //   this.router.navigate(['/dashboard']);
+    // }
   }
 
 }

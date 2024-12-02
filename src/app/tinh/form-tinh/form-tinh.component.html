@@ -1,0 +1,31 @@
+<div class="card">
+  <div class="card-header">
+    <h5>Chỉnh sửa Tỉnh</h5>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="editForm" (ngSubmit)="update()">
+      <div class="mb-3">
+        <label for="maTinh" class="form-label">Mã Tỉnh</label>
+        <input type="text" class="form-control" id="maTinh" formControlName="maTinh">
+      </div>
+      <div class="mb-3">
+        <label for="tenTinh" class="form-label">Tên Tỉnh</label>
+        <input type="text" class="form-control" id="tenTinh" formControlName="tenTinh">
+      </div>
+      <div class="mb-3">
+        <label for="cap" class="form-label">Cấp</label>
+        <input type="text" class="form-control" id="cap" formControlName="cap">
+      </div>
+      <div class="mb-3">
+        <label for="isActive" class="form-label">Active</label>
+        <input type="checkbox" class="form-check-input" id="isActive" formControlName="isActive">
+      </div>
+      <div class="mb-3">
+        <label for="id" class="form-label">ID</label>
+        <input type="number" class="form-control" id="id" formControlName="id" readonly>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <button (click)="closeForm.emit()"  class="btn btn-outline-danger" type="button" >Hủy</button>
+    </form>
+  </div>
+</div>

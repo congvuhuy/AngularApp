@@ -5,9 +5,9 @@ import { LayoutLoginSignupComponent } from './account/layout-login-signup/layout
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProductListComponent } from './product/product-list/product-list.component';
 import { ProfileComponent } from './profile/profile.component';
-import { TinhComponent } from './tinh-huyen-xa/tinh/tinh.component';
 import { LoginComponent } from './account/login/login.component';
 import { SignupComponent } from './account/signup/signup.component';
+import {TinhComponent} from "./tinh/tinh/tinh.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },

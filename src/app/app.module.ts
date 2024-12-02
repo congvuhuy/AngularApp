@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ApiService } from './service/api.service';
 import { AppRoutingModule } from './app-routing.module';
 import {ProfileComponent} from "./profile/profile.component";
+import {TinhModule} from "./tinh/tinh.module";
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import {ProfileComponent} from "./profile/profile.component";
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    TinhModule
   ],
   providers: [ApiService],
   bootstrap: [AppComponent],
