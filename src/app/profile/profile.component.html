@@ -1,5 +1,21 @@
 <div class="container card col-md-6 mt-5">
   <h2>Your Profile</h2>
+  <div class="text-center">
+    <img style="width:100px; border-radius: 100px" src="/assets/img/bruce-mars.jpg"(click)="show()">
+  </div>
+  <div *ngIf="showImage" class="form-Img">
+    <img src="#">
+    <div class="col-md-6 align-items-center justify-content-between">
+      <label for="file" class="form-label">Upload File</label>
+      <input id="file" type="file" (change)="onFileSelected($event)" class="form-control">
+    </div>
+    <div class="col-md-12">
+    <button type="button" (click)="uploadFile()" class="btn btn-primary">Lưu</button>
+      <button type="button" (click)="show()" class="btn btn-primary">Huỷ</button>
+    </div>
+
+  </div>
+  <div class="overlay" *ngIf="showImage"></div>
   <form (ngSubmit)="submitProfile()" class="row g-3">
     <div class="col-md-6 align-items-center justify-content-between">
       <label for="fullName" class="form-label">Họ và Tên</label>
@@ -59,3 +75,4 @@
     </div>
   </form>
 </div>
+

@@ -22,6 +22,7 @@ export class LoginComponent {
           this.user_access_token=res.access_token
           this.router.navigate(['/dashboard'])
           localStorage.setItem('access_token',this.user_access_token)
+          localStorage.setItem('userSession',this.username)
         }
       },
       error => {
@@ -29,5 +30,6 @@ export class LoginComponent {
       }
     )
   }
+
 }
 

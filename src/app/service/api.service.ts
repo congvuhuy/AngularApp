@@ -10,19 +10,21 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   getAccountBootstrap(): Observable<any> {
-    const token=localStorage.getItem('primary_token')
-    return this.http.get<any>(`${this.baseUrl}/app/account/get-account-bootstrap`,{
-      headers: new HttpHeaders().set('Authorization', `Bearer ${token}`)
-    });
+    const token=localStorage.getItem('access_token')
+    const headers=new HttpHeaders({
+      'Authorization':`Bearer ${token}`
+    })
+    return this.http.get<any>(`${this.baseUrl}/app/account/get-account-bootstrap`,{headers});
   }
 
   login(username: string, password: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
     const body = new URLSearchParams();
     body.set('userName',username);
     body.set('password',password);
-    return this.http.post<any>(`${this.baseUrl}/app/account/login`, body.toString(), {
-      headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-    });
+    return this.http.post<any>(`${this.baseUrl}/app/account/login`, body.toString(), {headers});
   }
   logout(): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/app/account/logout`, {});
@@ -50,10 +52,22 @@ export class ApiService {
     return this.http.post<any>(`${this.baseUrl}/master-data/select-data-source/get-combo-data-source`, data);
   }
 
+  getImg():Observable<any>{
+    const token=localStorage.getItem('access_token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    });
+    return this.http.get<any>(`${this.baseUrl}/import-export/document/get-file/3a168984-9d1f-26da-531d-1c1358e7b3e5`,{headers})
+  }
+
   uploadImg(file: File): Observable<any> {
+    const token=localStorage.getItem('access_token');
     const formData: FormData = new FormData();
+    const headers=new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+    })
     formData.append('files', file);
-    return this.http.post<any>(`${this.baseUrl}/import-export/document/upload-to-cache`, formData);
+    return this.http.post<any>(`${this.baseUrl}/import-export/document/upload-to-cache`, formData,{headers});
   }
 
 }

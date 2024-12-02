@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {LayoutModule} from "../layout/layout.module";
@@ -17,6 +16,7 @@ import { ProfileComponent } from './profile/profile.component';
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule,ReactiveFormsModule} from "@angular/forms";
 import {ApiService} from "./service/api.service";
+import {TinhComponent} from "./tinh-huyen-xa/tinh/tinh.component";
 
 const routes: Routes=[
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -26,7 +26,8 @@ const routes: Routes=[
     children:[
       {path:'dashboard',component:DashboardComponent},
       {path:'product',component:ProductListComponent},
-      {path:'profile',component:ProfileComponent}
+      {path:'profile',component:ProfileComponent},
+      {path:'tinh',component:TinhComponent},
     ]
   },
   {

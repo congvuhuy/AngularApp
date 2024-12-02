@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../service/api.service';
 import { formatDate } from '@angular/common';
+import {flatMap} from "rxjs";
 
 @Component({
   selector: 'app-profile',
@@ -26,14 +27,14 @@ export class ProfileComponent implements OnInit {
   listxa: any[] = [];
   token: string | null = '';
 
+  showImage:boolean=false;
+  selectedFile: File | null = null;
   constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
     this.token = localStorage.getItem('access_token');
-
     this.apiService.getAccountBootstrap().subscribe(
       res=>{
-        console.log(res)
         this.userId=res.id;
         this.name=res.userSession.name;
         this.fullName=res.userSession.fullName;
@@ -45,7 +46,12 @@ export class ProfileComponent implements OnInit {
         this.maXa=res.userSession.maXa;
         this.phoneNumber=res.userSession.phoneNumber;
         this.email= res.userSession.email;
-        console.log(this.ngaySinh)
+
+      }
+    )
+    this.apiService.getImg().subscribe(
+      res=>{
+        console.log(res)
       }
     )
     this.apiService.getTinh().subscribe(
@@ -117,5 +123,33 @@ export class ProfileComponent implements OnInit {
       console.log('khong co token')
     )
 
+  }
+
+  show() {
+    this.showImage=!this.showImage
+  }
+
+  onFileSelected(event: Event): void {
+
+    const input = event.target as HTMLInputElement;
+    console.log(input.files)
+    if (input.files ) {
+      this.selectedFile = input.files[0];
+    }
+  }
+  uploadFile(): void {
+    if (this.selectedFile) {
+      this.apiService.uploadImg(this.selectedFile).subscribe(
+        res => {
+          alert(`Thành công`);
+          },
+          err => {
+          alert('Lỗi');
+        }
+        );
+    }
+    else {
+      alert('Chưa có ảnh');
+    }
   }
 }
