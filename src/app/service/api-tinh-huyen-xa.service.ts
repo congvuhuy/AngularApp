@@ -10,17 +10,21 @@ export class ApiTinhHuyenXaService {
   private baseUrl = 'http://test.nghiencuukhoahoc.com.vn/api';
   constructor(private http: HttpClient) { }
 
-  getTinh():Observable<any>{
+
+  // Tỉnh
+  getListTinh():Observable<any>{
     const token=localStorage.getItem('access_token')
     const headers=new HttpHeaders({
-      'Authorization':`Bearer ${token}`
+      'Authorization':`Bearer ${token}`,
+      'Content-type': 'application/json'
     })
-    const body = new URLSearchParams();
-    body.set('filter','');
-    body.set('isActive','');
-    body.set('skipCount',String(0));
-    body.set('maxResultCount',String(10));
-    return this.http.post<any>(`${this.baseUrl}/master-data/tinh/get-list`,body.toString(),{headers})
+    const body={
+      'filter':null,
+      'isActive':null,
+      'skipCount':0,
+      'maxResultCount':10
+    }
+    return this.http.post<any>(`${this.baseUrl}/master-data/tinh/get-list`,JSON.stringify(body) ,{headers})
   }
   updateTinh(data:any):Observable<any>{
     const token=localStorage.getItem('access_token')

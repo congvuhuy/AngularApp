@@ -11,7 +11,7 @@ export class TinhComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.api.getTinh().subscribe(
+    this.api.getListTinh().subscribe(
       res=>{
         console.log(res)
       }
