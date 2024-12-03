@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../service/api.service';
 import { formatDate } from '@angular/common';
 import {flatMap} from "rxjs";
+import {ApiTinhService} from "../service/api-tinh.service";
+import {ApiHuyenService} from "../service/api-huyen.service";
 
 @Component({
   selector: 'app-profile',
@@ -29,7 +31,7 @@ export class ProfileComponent implements OnInit {
 
   showImage:boolean=false;
   selectedFile: File | null = null;
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService,private apiTinhService:ApiTinhService ,private ApiHuyenService:ApiHuyenService) { }
 
   ngOnInit(): void {
     this.token = localStorage.getItem('access_token');
@@ -54,9 +56,10 @@ export class ProfileComponent implements OnInit {
         console.log(res)
       }
     )
-    this.apiService.getTinh().subscribe(
+    this.apiTinhService.getFullList().subscribe(
       res => {
         this.listtinh = res;
+        console.log(this.listtinh)
       },
       err => {
         console.error('', err);

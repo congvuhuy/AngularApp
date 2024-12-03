@@ -11,11 +11,15 @@ export interface ProductCategories{
   name: string,
   id: number
 }
-export interface Account{
-  accountId: number,
-  fullName: string,
-  phone: number,
-  userName:string,
-  password:string,
-  roleId:number,
+export interface mien{
+  maMien:number;
+  tenMien:string;
+}
+export interface vungDiaLy{
+  maVungDiaLy:number;
+  tenVungDiaLy:string;
+}
+export interface vungsinhthai{
+  maVungSinhThai:number;
+  tenVungSinhThai:string;
 }

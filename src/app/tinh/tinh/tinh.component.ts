@@ -10,18 +10,12 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 export class TinhComponent implements OnInit {
   showform =false;
   currentPage=0;
-  tinhForm: FormGroup;
   tinhList: any[] = [];
   selectedTinh: any;
   skipCount = 0;
   maxResultCount = 10
   constructor(private fb: FormBuilder, private apiTinhService: ApiTinhService) {
-    this.tinhForm = this.fb.group({
-      maTinh: ['', Validators.required],
-      tenTinh: ['', Validators.required],
-      cap: ['', Validators.required],
-      isActive: [true], id: [0]
-    });
+
   }
   ngOnInit(): void {
     this.loadList()
@@ -58,7 +52,6 @@ export class TinhComponent implements OnInit {
         this.loadList()
       });
   }
-
   create() {
     this.selectedTinh = null;
     this.showform=true;

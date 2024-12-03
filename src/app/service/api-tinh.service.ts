@@ -12,6 +12,10 @@ export class ApiTinhService {
 
 
   // Tỉnh
+  getFullList(): Observable<any> {
+    const data = { type: 1, cascader: '' };
+    return this.http.post<any>(`http://test.nghiencuukhoahoc.com.vn/api/master-data/select-data-source/get-combo-data-source`, data);
+  }
   getList(skipCount:number,maxResultCount:number):Observable<any>{
     const token=localStorage.getItem('access_token')
     const headers=new HttpHeaders({
@@ -26,9 +30,9 @@ export class ApiTinhService {
     }
     return this.http.post<any>(`${this.baseUrl}/get-list`,JSON.stringify(body) ,{headers})
   }
-  createOrUpdateTinh(maTinh: string, tenTinh: string, cap: string, isActive: boolean, id: number):Observable<any>{
+  createOrUpdateTinh(maTinh: string, tenTinh: string, cap: string, isActive: boolean, id: number, vungMien : number, vungDialy : number,vungSinhThai:number):Observable<any>{
     const token=localStorage.getItem('access_token')
-    const body = { maTinh, tenTinh, cap, isActive, id };
+    const body = { maTinh, tenTinh, cap, isActive, id ,vungMien,vungDialy,vungSinhThai};
     const headers=new HttpHeaders({
       'Authorization':`Bearer ${token}`
     })

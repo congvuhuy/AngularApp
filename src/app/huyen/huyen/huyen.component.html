@@ -1,0 +1,75 @@
+<!-- tinh.component.html -->
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-12">
+      <div class="card mb-4">
+        <div class="card-header pb-0">
+          <h6>Quản lý tỉnh</h6>
+        </div>
+        <div class="card-body px-0 pt-0 pb-2">
+          <div class="table-responsive p-0">
+            <table class="table align-items-center mb-0">
+              <thead>
+              <tr>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Stt</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Mã huyện</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tên huyện</th>
+
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Mã tỉnh</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tên tỉnh</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Cấp</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hoạt động</th>
+
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><button (click)="create()" class="btn btn-primary btn-sm">Thêm</button></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let itemHuyen of huyenList; let i =index">
+                <td>
+                  <div class="d-flex px-2 py-1">
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-sm">{{(currentPage-1)*10 + i+1}}</h6>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <p class="text-xs font-weight-bold mb-0">{{itemHuyen.maHuyen}}</p>
+                </td>
+                <td>
+                  <p class="text-xs font-weight-bold mb-0">{{itemHuyen.tenHuyen}}</p>
+                </td>
+                <td>
+                  <p class="text-xs font-weight-bold mb-0">{{itemHuyen.maTinh}}</p>
+                </td>
+                <td>
+                  <p class="text-xs font-weight-bold mb-0">{{itemHuyen.tenTinh}}</p>
+                </td>
+                <td>
+                  <p class="text-xs font-weight-bold mb-0 text-center">{{itemHuyen.cap}}</p>
+                </td>
+                <td class="align-middle text-center text-sm">
+                  <span *ngIf="itemHuyen.isActive" class="badge badge-sm bg-gradient-success">On</span>
+                  <span *ngIf="!itemHuyen.isActive" class="badge badge-sm bg-gradient-danger">Off</span>
+                </td>
+                <td class="align-middle">
+                  <button class="btn btn-secondary btn-sm" (click)="edit(itemHuyen)">Sửa</button>
+                  <button class="btn btn-danger btn-sm" (click)="delete(itemHuyen.id)">Xoá</button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <button class="btn" (click)="prevPage()" [disabled]="skipCount === 0">Previous</button>
+      <button class="btn" (click)="nextPage()" >Next</button>
+    </div>
+  </div>
+
+  <div class="overlay" *ngIf="showform"></div>
+  <div class="row form-huyen" *ngIf="showform">
+    <div class="col-12">
+      <app-huyen-form [huyenData]="selectedHuyen" (closeForm)="closeForm()"></app-huyen-form>
+    </div>
+  </div>
+</div>

@@ -19,7 +19,7 @@
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Vùng địa lý</th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Vùng sinh thái</th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hoạt động</th>
-                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><button class="btn btn-primary btn-sm" (click)="create()">Create</button></th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><button class="btn btn-primary btn-sm" (click)="create()">Thêm</button></th>
               </tr>
               </thead>
               <tbody>
@@ -40,22 +40,35 @@
                 <td>
                   <p class="text-xs font-weight-bold mb-0 text-center">{{itemTinh.cap}}</p>
                 </td>
-                <td>
-                  <p class="text-xs font-weight-bold mb-0">{{itemTinh.vungMien}}</p>
+                <td class="text-center">
+                  <p *ngIf="itemTinh.vungMien===1" class="text-xs font-weight-bold mb-0">Miền bắc</p>
+                  <p *ngIf="itemTinh.vungMien===2" class="text-xs font-weight-bold mb-0">Miền trung</p>
+                  <p *ngIf="itemTinh.vungMien===3" class="text-xs font-weight-bold mb-0">Miền nam</p>
                 </td>
-                <td>
-                  <p class="text-xs font-weight-bold mb-0">{{itemTinh.vungDiaLy}}</p>
+                <td class="text-center">
+                  <p *ngIf="itemTinh.vungDiaLy===1" class="text-xs font-weight-bold mb-0">Thành Phố</p>
+                  <p *ngIf="itemTinh.vungDiaLy===2" class="text-xs font-weight-bold mb-0">Nông thôn</p>
+                  <p *ngIf="itemTinh.vungDiaLy===3" class="text-xs font-weight-bold mb-0">Miền núi</p>
+                  <p *ngIf="itemTinh.vungDiaLy===4" class="text-xs font-weight-bold mb-0">Duyên hải</p>
+
                 </td>
-                <td>
-                  <p class="text-xs font-weight-bold mb-0">{{itemTinh.vungSinhThai}}</p>
+                <td class="text-center">
+                  <p *ngIf="itemTinh.vungSinhThai===1" class="text-xs font-weight-bold mb-0">Tây bắc</p>
+                  <p *ngIf="itemTinh.vungSinhThai===2" class="text-xs font-weight-bold mb-0">Đông bắc</p>
+                  <p *ngIf="itemTinh.vungSinhThai===3" class="text-xs font-weight-bold mb-0">Đồng bằng sông hồng</p>
+                  <p *ngIf="itemTinh.vungSinhThai===4" class="text-xs font-weight-bold mb-0">Bắc trung bộ</p>
+                  <p *ngIf="itemTinh.vungSinhThai===5" class="text-xs font-weight-bold mb-0">Nam trung bộ</p>
+                  <p *ngIf="itemTinh.vungSinhThai===6" class="text-xs font-weight-bold mb-0">Tây nguyên</p>
+                  <p *ngIf="itemTinh.vungSinhThai===7" class="text-xs font-weight-bold mb-0">Đông nam bộ</p>
+                  <p *ngIf="itemTinh.vungSinhThai===8" class="text-xs font-weight-bold mb-0">Tây nam bộ</p>
                 </td>
                 <td class="align-middle text-center text-sm">
-                  <span *ngIf="itemTinh.isActive" class="badge badge-sm bg-gradient-success">Active</span>
+                  <span *ngIf="itemTinh.isActive" class="badge badge-sm bg-gradient-success">On</span>
                     <span *ngIf="!itemTinh.isActive" class="badge badge-sm bg-gradient-danger">Off</span>
                 </td>
                 <td class="align-middle">
-                  <button class="btn btn-secondary btn-sm" (click)="edit(itemTinh)">Edit</button>
-                  <button class="btn btn-danger btn-sm" (click)="delete(itemTinh.id)">Delete</button>
+                  <button class="btn btn-secondary btn-sm" (click)="edit(itemTinh)">Sửa</button>
+                  <button class="btn btn-danger btn-sm" (click)="delete(itemTinh.id)">Xoá</button>
                 </td>
               </tr>
               </tbody>
@@ -63,8 +76,8 @@
           </div>
         </div>
       </div>
-        <button class="btn " (click)="prevPage()" [disabled]="skipCount === 0">Previous</button>
-        <button class="btn" (click)="nextPage()">Next</button>
+        <button class="btn" (click)="prevPage()" [disabled]="skipCount === 0">Previous</button>
+        <button class="btn" (click)="nextPage()" >Next</button>
     </div>
   </div>
 

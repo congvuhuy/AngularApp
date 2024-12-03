@@ -1,0 +1,101 @@
+<!-- tinh.component.html -->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card mb-4">
+        <div class="card-header pb-0">
+          <h6>Quản lý xã</h6>
+        </div>
+        <div class="card-body px-0 pt-0 pb-2">
+          <div class="table-responsive p-0">
+            <table class="table align-items-center mb-0">
+              <thead>
+              <tr>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Stt</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Mã xã</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tên xã</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Mã huyện</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Tên huyện</th>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Mã tỉnh</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tên tỉnh</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Cấp</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Xã nghèo</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Xã dân tộc</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Xã miền núi</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Là thành thị</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hoạt dộng</th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><button  class="btn btn-primary btn-sm">Thêm</button></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let itemXa of xaList; let i =index">
+                <td>
+                  <div class="d-flex px-2 py-1">
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="mb-0 text-sm">{{(currentPage-1)*10 + i+1}}</h6>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <p class="text-xs font-weight-bold mb-0">{{itemXa.maXa}}</p>
+                </td>
+                <td>
+                  <p class="text-xs font-weight-bold mb-0">{{itemXa.tenXa}}</p>
+                </td>
+                <td>
+                  <p class="text-xs font-weight-bold mb-0">{{itemXa.maHuyen}}</p>
+                </td>
+                <td>
+                  <p class="text-xs font-weight-bold mb-0">{{itemXa.tenHuyen}}</p>
+                </td>
+                <td>
+                  <p class="text-xs font-weight-bold mb-0">{{itemXa.maTinh}}</p>
+                </td>
+                <td>
+                  <p class="text-xs font-weight-bold mb-0">{{itemXa.tenTinh}}</p>
+                </td>
+                <td>
+                  <p class="text-xs font-weight-bold mb-0 text-center">{{itemXa.cap}}</p>
+                </td>
+                <td class="align-middle text-center text-sm">
+                  <span *ngIf="itemXa.isXaNgheo" class="badge badge-sm bg-gradient-success">On</span>
+                  <span *ngIf="!itemXa.isXaNgheo" class="badge badge-sm bg-gradient-danger">Off</span>
+                </td>
+                <td class="align-middle text-center text-sm">
+                  <span *ngIf="itemXa.isXaDanToc" class="badge badge-sm bg-gradient-success">On</span>
+                  <span *ngIf="!itemXa.isXaDanToc" class="badge badge-sm bg-gradient-danger">Off</span>
+                </td>
+                <td class="align-middle text-center text-sm">
+                  <span *ngIf="itemXa.isXaMienNui" class="badge badge-sm bg-gradient-success">On</span>
+                  <span *ngIf="!itemXa.isXaMienNui" class="badge badge-sm bg-gradient-danger">Off</span>
+                </td>
+                <td class="align-middle text-center text-sm">
+                  <span *ngIf="itemXa.isThanhThi" class="badge badge-sm bg-gradient-success">On</span>
+                  <span *ngIf="!itemXa.isThanhThi" class="badge badge-sm bg-gradient-danger">Off</span>
+                </td>
+                <td class="align-middle text-center text-sm">
+                  <span *ngIf="itemXa.isActive" class="badge badge-sm bg-gradient-success">On</span>
+                  <span *ngIf="!itemXa.isActive" class="badge badge-sm bg-gradient-danger">Off</span>
+                </td>
+                <td class="align-middle">
+                  <button class="btn btn-secondary btn-sm" (click)="edit(itemXa)">Sửa</button>
+                  <button class="btn btn-danger btn-sm" (click)="delete(itemXa.id)">Xoá</button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <button class="btn" (click)="prevPage()" [disabled]="skipCount === 0">Previous</button>
+      <button class="btn" (click)="nextPage()" >Next</button>
+    </div>
+  </div>
+
+  <div class="overlay" *ngIf="showform"></div>
+  <div class="row form-huyen" *ngIf="showform">
+    <div class="col-12">
+      <app-xa-form [xaData]="selectedXa" (closeForm)="closeForm()"></app-xa-form>
+    </div>
+  </div>
+</div>

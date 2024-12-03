@@ -1,0 +1,36 @@
+<div class="card">
+  <div class="card-header">
+    <h5>Huyện</h5>
+  </div>
+  <div class="card-body" >
+    <form [formGroup]="createOrEditForm" (submit)="createOrUpdate()">
+      <div class="mb-3" >
+        <label for="maTinh" class="form-label">Tên tỉnh</label>
+        <select  *ngIf="huyenData===null" id="maTinh" formControlName="maTinh">
+          <option *ngFor="let item of listSelectTinh" [value]="item.value">{{item.displayText}}</option>
+        </select>
+        <select *ngIf="huyenData!=null" id="maTinh" formControlName="maTinh"  >
+          <option *ngFor="let item of listSelectTinh" [value]="item.value" disabled>{{item.displayText}}</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label  class="form-label">Mã huyện</label>
+        <input type="text" class="form-control"  formControlName="maHuyen">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Tên huyện</label>
+        <input type="text" class="form-control"  formControlName="tenHuyen">
+      </div>
+      <div class="mb-3">
+        <label  class="form-label">Cấp</label>
+        <input type="text" class="form-control"  formControlName="cap">
+      </div>
+      <div class="mb-3">
+        <label  class="form-label">Active</label>
+        <input type="checkbox"class="form-check-input" formControlName="isActive">
+      </div>
+      <button class="btn btn-secondary">Lưu</button>
+      <button class="btn btn-warning" (click)="closeForm.emit()" >Huỷ</button>
+    </form>
+  </div>
+</div>

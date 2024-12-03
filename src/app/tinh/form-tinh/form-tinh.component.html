@@ -3,29 +3,59 @@
     <h5>Chỉnh sửa Tỉnh</h5>
   </div>
   <div class="card-body">
-    <form [formGroup]="editForm" (ngSubmit)="update()">
+    <form [formGroup]="createOrEditForm" (ngSubmit)="update()">
       <div class="mb-3">
-        <label for="maTinh" class="form-label">Mã Tỉnh</label>
-        <input type="text" class="form-control" id="maTinh" formControlName="maTinh">
+        <label  class="form-label">Mã Tỉnh</label>
+        <input type="text" class="form-control"  formControlName="maTinh">
       </div>
       <div class="mb-3">
-        <label for="tenTinh" class="form-label">Tên Tỉnh</label>
-        <input type="text" class="form-control" id="tenTinh" formControlName="tenTinh">
+        <label class="form-label">Tên Tỉnh</label>
+        <input type="text" class="form-control"  formControlName="tenTinh">
       </div>
       <div class="mb-3">
-        <label for="cap" class="form-label">Cấp</label>
-        <input type="text" class="form-control" id="cap" formControlName="cap">
+        <label  class="form-label">Cấp</label>
+        <input type="text" class="form-control"  formControlName="cap">
       </div>
       <div class="mb-3">
-        <label for="isActive" class="form-label">Active</label>
-        <input type="checkbox" class="form-check-input" id="isActive" formControlName="isActive">
+        <label  class="form-label">Active</label>
+        <input type="checkbox" class="form-check-input"  formControlName="isActive">
+      </div>
+      <div class="mb-3">
+        <label  class="form-label">Miền</label>
+        <select  formControlName="vungMien">
+          <option class="form-control" value="1">Miền bắc</option>
+          <option class="form-control" value="2">Miền trung</option>
+          <option class="form-control" value="3">Miền nam</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Vùng địa lý</label>
+        <select formControlName="vungDiaLy">
+          <option class="form-control" value="1">Thành phố</option>
+          <option class="form-control" value="2">Nông thôn</option>
+          <option class="form-control" value="3">Miền núi</option>
+          <option class="form-control" value="4">Duyên hải</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Vùng sinh thái</label>
+        <select  formControlName="vungSinhThai">
+          <option class="form-control" value="1">Tây bắc</option>
+          <option class="form-control" value="2">Đông bắc</option>
+          <option class="form-control" value="3">Đồng bằng sông hồng</option>
+          <option class="form-control" value="4">Bắc trung bộ</option>
+          <option class="form-control" value="5">Nam trung bộ</option>
+          <option class="form-control" value="6">Tây nguyên</option>
+          <option class="form-control" value="7">Đông nam bộ</option>
+          <option class="form-control" value="8">Tây nam bộ</option>
+        </select>
       </div>
       <div class="mb-3">
         <label for="id" class="form-label">ID</label>
         <input type="number" class="form-control" id="id" formControlName="id" readonly>
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-      <button (click)="closeForm.emit()"  class="btn btn-outline-danger" type="button" >Hủy</button>
+      <button type="submit" class="btn btn-primary">Lưu</button>
+      <button (click)="closeForm.emit()" class="btn btn-outline-danger" type="button" >Hủy</button>
     </form>
   </div>
 </div>

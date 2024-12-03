@@ -37,10 +37,7 @@ export class ApiService {
     return this.http.post<any>(`${this.baseUrl}/app/account/update-account-info`, data, { headers });
   }
 
-  getTinh(): Observable<any> {
-    const data = { type: 1, cascader: '' };
-    return this.http.post<any>(`${this.baseUrl}/master-data/select-data-source/get-combo-data-source`, data);
-  }
+
 
   getHuyen(maTinh: string): Observable<any> {
     const data = { type: 2, cascader: maTinh };

@@ -10,6 +10,8 @@ import { ApiService } from './service/api.service';
 import { AppRoutingModule } from './app-routing.module';
 import {ProfileComponent} from "./profile/profile.component";
 import {TinhModule} from "./tinh/tinh.module";
+import {HuyenModule} from "./huyen/huyen.module";
+import {XaModule} from "./xa/xa.module";
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import {TinhModule} from "./tinh/tinh.module";
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    TinhModule
+    TinhModule,
+    HuyenModule,
+    XaModule
   ],
   providers: [ApiService],
   bootstrap: [AppComponent],

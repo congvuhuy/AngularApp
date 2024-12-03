@@ -12,26 +12,31 @@ export class FormTinhComponent {
   @Input() showForm: any;
   @Output() closeForm = new EventEmitter<void>();
   // @Output() closeForm = new EventEmitter<void>();
-  editForm: FormGroup;
+  createOrEditForm: FormGroup;
 
   constructor(private fb: FormBuilder, private tinhService: ApiTinhService) {
-    this.editForm = this.fb.group({
+    this.createOrEditForm = this.fb.group({
       maTinh: ['', Validators.required],
       tenTinh: ['', Validators.required],
       cap: ['', Validators.required],
       isActive: [true],
-      id: [0]
+      id: [0],
+      vungMien:[0],
+      vungDiaLy:[0],
+      vungSinhThai:[0]
     });
   }
   ngOnInit(): void {
     if (this.tinhData) {
-      this.editForm.patchValue(this.tinhData);
+      this.createOrEditForm.patchValue(this.tinhData);
+      console.log(this.tinhData)
     }
   }
   update() {
-    if (this.editForm.valid) {
-      const { maTinh, tenTinh, cap, isActive, id } = this.editForm.value;
-      this.tinhService.createOrUpdateTinh(maTinh, tenTinh, cap, isActive, id).subscribe(
+    if (this.createOrEditForm.valid) {
+      const { maTinh, tenTinh, cap, isActive, id,vungMien, vungDiaLy,vungSinhThai } = this.createOrEditForm.value;
+      console.log(this.createOrEditForm.value)
+      this.tinhService.createOrUpdateTinh(maTinh, tenTinh, cap, isActive, id,vungMien, vungDiaLy,vungSinhThai).subscribe(
         res => {
             this.closeForm.emit();
       });
