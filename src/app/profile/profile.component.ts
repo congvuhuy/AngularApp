@@ -71,7 +71,7 @@ export class ProfileComponent implements OnInit {
   }
   onTinhChange(): void {
     if (this.maTinh) {
-      this.apiService.getHuyen(this.maTinh).subscribe(
+      this.ApiHuyenService.getListByMaTinh(this.maTinh).subscribe(
         res => {
           this.listhuyen = res;
           this.listxa = [];

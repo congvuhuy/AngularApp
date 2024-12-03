@@ -36,14 +36,6 @@ export class ApiService {
     });
     return this.http.post<any>(`${this.baseUrl}/app/account/update-account-info`, data, { headers });
   }
-
-
-
-  getHuyen(maTinh: string): Observable<any> {
-    const data = { type: 2, cascader: maTinh };
-    return this.http.post<any>(`${this.baseUrl}/master-data/select-data-source/get-combo-data-source`, data);
-  }
-
   getXa(maHuyen: string): Observable<any> {
     const data = { type: 3, cascader: maHuyen };
     return this.http.post<any>(`${this.baseUrl}/master-data/select-data-source/get-combo-data-source`, data);

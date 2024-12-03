@@ -9,6 +9,7 @@ export class ApiXaService {
   private base_Url='http://test.nghiencuukhoahoc.com.vn/api/master-data/xa'
   private token=localStorage.getItem('access_token')
   constructor(private http: HttpClient) { }
+
   getList(skipCount:number,maxResultCount:number):Observable<any>{
     let headers=new HttpHeaders({
       'Authorization':`bearer ${this.token}`,

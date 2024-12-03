@@ -24,7 +24,7 @@
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Xã miền núi</th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Là thành thị</th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hoạt dộng</th>
-                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><button  class="btn btn-primary btn-sm">Thêm</button></th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><button (click)="create()"  class="btn btn-primary btn-sm">Thêm</button></th>
               </tr>
               </thead>
               <tbody>
@@ -93,7 +93,7 @@
   </div>
 
   <div class="overlay" *ngIf="showform"></div>
-  <div class="row form-huyen" *ngIf="showform">
+  <div class="row form-xa" *ngIf="showform">
     <div class="col-12">
       <app-xa-form [xaData]="selectedXa" (closeForm)="closeForm()"></app-xa-form>
     </div>

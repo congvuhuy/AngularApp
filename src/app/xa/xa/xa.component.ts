@@ -59,4 +59,9 @@ export class XaComponent implements OnInit{
     this.loadList();
     this.showform=false;
   }
+
+  create() {
+    this.showform=true
+    this.selectedXa=null
+  }
 }

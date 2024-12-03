@@ -9,7 +9,10 @@ export class ApiHuyenService {
   private base_Url='http://test.nghiencuukhoahoc.com.vn/api/master-data/huyen'
   private token=localStorage.getItem('access_token')
   constructor(private http: HttpClient) {
-
+  }
+  getListByMaTinh(maTinh: string): Observable<any> {
+    const data = { type: 2, cascader: maTinh };
+    return this.http.post<any>(`http://test.nghiencuukhoahoc.com.vn/api/master-data/select-data-source/get-combo-data-source`, data);
   }
   getList(skipCount:number,maxResultCount:number):Observable<any>{
     const headers=new HttpHeaders({
