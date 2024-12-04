@@ -50,6 +50,7 @@ export class ProfileComponent implements OnInit {
         this.email= res.userSession.email;
 
       }
+
     )
     this.apiService.getImg().subscribe(
       res=>{
@@ -58,7 +59,7 @@ export class ProfileComponent implements OnInit {
     )
     this.apiTinhService.getFullList().subscribe(
       res => {
-        this.listtinh = res;
+        this.listtinh = res.items;
         console.log(this.listtinh)
       },
       err => {
@@ -73,8 +74,9 @@ export class ProfileComponent implements OnInit {
     if (this.maTinh) {
       this.ApiHuyenService.getListByMaTinh(this.maTinh).subscribe(
         res => {
-          this.listhuyen = res;
+          this.listhuyen = res.items;
           this.listxa = [];
+          console.log(this.maTinh);
         },
         err => {
           console.error('', err);

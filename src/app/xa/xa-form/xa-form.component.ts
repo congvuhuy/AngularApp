@@ -31,33 +31,40 @@ export class XaFormComponent implements OnInit{
       isThanhThi:[true],
       isActive:[true],
     })
+
+  }
+  getListTinh(){
     this.apiTinh.getFullList().subscribe(
       res=>{
-           this.listFormTinh = res;
+        this.listFormTinh = res.items;
       })
   }
-  getListHuyenByMaTinh(currentMaTinh: any) {
+  getListHuyenByMaTinh(currentMaTinh: string) {
       this.apiHuyen.getListByMaTinh(currentMaTinh).subscribe(
         res=>{
           this.listFormHuyen = res;
+          console.log(this.listFormHuyen)
         }
       )
   }
   ngOnInit(): void {
     if (this.xaData) {
       this.createOrUpdateForm.patchValue(this.xaData);
+      this.getListTinh()
     }
 
     this.createOrUpdateForm.get('maTinh')?.valueChanges.subscribe(maTinh => {
       if (maTinh) {
+        console.log('hello')
+        console.log(maTinh)
         this.getListHuyenByMaTinh(maTinh);
       }
     });
 
-    const currentMaTinh = this.createOrUpdateForm.get('maTinh')?.value;
-    if (currentMaTinh) {
-      this.getListHuyenByMaTinh(currentMaTinh);
-    }
+    // let currentMaTinh:'' = this.createOrUpdateForm.get('maTinh')?.value;
+    // if (currentMaTinh) {
+    //   this.getListHuyenByMaTinh(currentMaTinh);
+    // }
   }
 
 

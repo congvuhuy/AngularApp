@@ -6,17 +6,17 @@
     <form [formGroup]="createOrUpdateForm" (ngSubmit)="update()">
       <div class="mb-3">
         <label class="form-label">Tỉnh/Thành Phố</label>
-        <select formControlName="maTinh">
-          <option *ngFor="let itemTinh of listFormTinh" [value]="itemTinh.value">
-            {{itemTinh.displayText}}
+        <select class="form-select" formControlName="maTinh">
+          <option *ngFor="let itemTinh of listFormTinh" [value]="xaData.maTinh" >
+            {{itemTinh.tenTinh}}
           </option>
         </select>
       </div>
       <div class="mb-3">
         <label class="form-label">Huyện/Quận</label>
-        <select formControlName="maHuyen">
-          <option *ngFor="let itemHuyen of listFormHuyen" [value]="itemHuyen.value">
-            {{itemHuyen.displayText}}
+        <select class="form-select"  formControlName="maHuyen">
+          <option *ngFor="let itemHuyen of listFormHuyen" [value]="xaData.maHuyen">
+            {{itemHuyen.tenTinh}}
           </option>
         </select>
       </div>

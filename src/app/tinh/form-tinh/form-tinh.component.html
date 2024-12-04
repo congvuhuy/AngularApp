@@ -1,9 +1,10 @@
 <div class="card">
   <div class="card-header">
-    <h5>Chỉnh sửa Tỉnh</h5>
+    <h5 *ngIf="tinhData">Cập nhật tỉnh</h5>
+    <h5 *ngIf="!tinhData">Thêm tỉnh</h5>
   </div>
   <div class="card-body">
-    <form [formGroup]="createOrEditForm" (ngSubmit)="update()">
+    <form [formGroup]="createOrEditForm" (ngSubmit)="createOrUpdate()">
       <div class="mb-3">
         <label  class="form-label">Mã Tỉnh</label>
         <input type="text" class="form-control"  formControlName="maTinh">
@@ -22,15 +23,15 @@
       </div>
       <div class="mb-3">
         <label  class="form-label">Miền</label>
-        <select  formControlName="vungMien">
+        <select  class="form-select" formControlName="vungMien">
           <option class="form-control" value="1">Miền bắc</option>
           <option class="form-control" value="2">Miền trung</option>
           <option class="form-control" value="3">Miền nam</option>
         </select>
       </div>
       <div class="mb-3">
-        <label class="form-label">Vùng địa lý</label>
-        <select formControlName="vungDiaLy">
+        <label  class="form-label">Vùng địa lý</label>
+        <select  class="form-select" formControlName="vungDiaLy">
           <option class="form-control" value="1">Thành phố</option>
           <option class="form-control" value="2">Nông thôn</option>
           <option class="form-control" value="3">Miền núi</option>
@@ -39,7 +40,7 @@
       </div>
       <div class="mb-3">
         <label class="form-label">Vùng sinh thái</label>
-        <select  formControlName="vungSinhThai">
+        <select class="form-select" formControlName="vungSinhThai">
           <option class="form-control" value="1">Tây bắc</option>
           <option class="form-control" value="2">Đông bắc</option>
           <option class="form-control" value="3">Đồng bằng sông hồng</option>

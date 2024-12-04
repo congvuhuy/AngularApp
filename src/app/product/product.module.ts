@@ -5,6 +5,7 @@ import { ProductFormComponent } from './product-form/product-form.component';
 import {FormsModule} from "@angular/forms";
 import {RouterLink} from "@angular/router";
 import {ProductService} from "../service/product.service";
+import {ProductRoutingModule} from "./product-routing.module";
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import {ProductService} from "../service/product.service";
     imports: [
         CommonModule,
         FormsModule,
-        RouterLink
+        RouterLink,
+      ProductRoutingModule
     ],
   providers:[
     ProductService

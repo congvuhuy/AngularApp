@@ -47,19 +47,19 @@
     <div class="col-md-6 align-items-center justify-content-between">
       <label for="tinh" class="form-label">Tỉnh</label>
       <select id="tinh" [(ngModel)]="maTinh" name="tinh" (change)="onTinhChange()" class="form-control">
-        <option *ngFor="let itemTinh of listtinh" [value]="itemTinh.value">{{itemTinh.displayText}}</option>
+        <option *ngFor="let itemTinh of listtinh" [value]="itemTinh.id">{{itemTinh.tenTinh}}</option>
       </select>
     </div>
     <div class="col-md-6 align-items-center justify-content-between">
       <label for="huyen" class="form-label">Huyện</label>
       <select id="huyen" [(ngModel)]="maHuyen" name="huyen" (change)="onHuyenChange()" class="form-control">
-        <option *ngFor="let itemHuyen of listhuyen" [value]="itemHuyen.value">{{itemHuyen.displayText}}</option>
+        <option *ngFor="let itemHuyen of listhuyen" [value]="itemHuyen.value">{{itemHuyen.tenHuyen}}</option>
       </select>
     </div>
     <div class="col-md-6 align-items-center justify-content-between">
       <label for="xa" class="form-label">Xã</label>
       <select id="xa" [(ngModel)]="maXa" name="xa" class="form-control">
-        <option *ngFor="let itemXa of listxa" [value]="itemXa.value">{{itemXa.displayText}}</option>
+        <option *ngFor="let itemXa of listxa" [value]="itemXa.value">{{itemXa.tenXa}}</option>
       </select>
     </div>
     <div class="col-md-6 align-items-center justify-content-between">

@@ -32,7 +32,7 @@ export class FormTinhComponent {
       console.log(this.tinhData)
     }
   }
-  update() {
+  createOrUpdate() {
     if (this.createOrEditForm.valid) {
       const { maTinh, tenTinh, cap, isActive, id,vungMien, vungDiaLy,vungSinhThai } = this.createOrEditForm.value;
       console.log(this.createOrEditForm.value)

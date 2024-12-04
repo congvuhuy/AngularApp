@@ -11,8 +11,14 @@ export class ApiHuyenService {
   constructor(private http: HttpClient) {
   }
   getListByMaTinh(maTinh: string): Observable<any> {
-    const data = { type: 2, cascader: maTinh };
-    return this.http.post<any>(`http://test.nghiencuukhoahoc.com.vn/api/master-data/select-data-source/get-combo-data-source`, data);
+    const headers=new HttpHeaders({
+      'Authorization':`Bearer ${this.token}`,
+      'Content-type':'application/json'
+    })
+    const body = {
+      "maTinh": maTinh
+    };
+    return this.http.post<any>(`${this.base_Url}/get-list`,body,{headers},);
   }
   getList(skipCount:number,maxResultCount:number):Observable<any>{
     const headers=new HttpHeaders({

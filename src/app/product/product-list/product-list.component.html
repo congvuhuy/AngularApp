@@ -44,7 +44,7 @@
               <span class=" badge badge-sm bg-gradient-success">{{pro.inStock}}</span>
             </td>
             <td class="align-middle text-center">
-              <span class="text-secondary text-xs font-weight-bold">{{pro.exprireDate}}</span>
+              <span class="text-secondary text-xs font-weight-bold">{{pro.exprireDate|date:'fullDate'}}</span>
             </td>
             <td class="">
               <a routerLink="#" (click)="openForm('edit', pro)" class="btn btn-outline-info text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">

@@ -6,11 +6,11 @@
     <form [formGroup]="createOrEditForm" (submit)="createOrUpdate()">
       <div class="mb-3" >
         <label for="maTinh" class="form-label">Tên tỉnh</label>
-        <select  *ngIf="huyenData===null" id="maTinh" formControlName="maTinh">
-          <option *ngFor="let item of listSelectTinh" [value]="item.value">{{item.displayText}}</option>
+        <select class="form-select"  *ngIf="huyenData===null" id="maTinh" formControlName="maTinh">
+          <option *ngFor="let item of listSelectTinh" [value]="item.id">{{item.tenTinh}}</option>
         </select>
-        <select *ngIf="huyenData!=null" id="maTinh" formControlName="maTinh"  >
-          <option *ngFor="let item of listSelectTinh" [value]="item.value" disabled>{{item.displayText}}</option>
+        <select  class="form-select"  *ngIf="huyenData!=null" formControlName="maTinh"  >
+          <option *ngFor="let item of listSelectTinh" [value]="item.id" disabled>{{item.tenTinh}}</option>
         </select>
       </div>
       <div class="mb-3">
@@ -29,8 +29,8 @@
         <label  class="form-label">Active</label>
         <input type="checkbox"class="form-check-input" formControlName="isActive">
       </div>
-      <button class="btn btn-secondary">Lưu</button>
-      <button class="btn btn-warning" (click)="closeForm.emit()" >Huỷ</button>
+      <button class="btn btn-primary">Lưu</button>
+      <button class="btn btn-outline-danger" (click)="closeForm.emit()" >Huỷ</button>
     </form>
   </div>
 </div>

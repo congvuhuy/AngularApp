@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutContainComponent } from '../layout/layout-contain/layout-contain.component';
 import { LayoutLoginSignupComponent } from './account/layout-login-signup/layout-login-signup.component';
 import { DashboardComponent } from './page/dashboard/dashboard.component';
-import { ProductListComponent } from './product/product-list/product-list.component';
 import { ProfileComponent } from './profile/profile.component';
 import { LoginComponent } from './account/login/login.component';
 import { SignupComponent } from './account/signup/signup.component';
@@ -18,7 +17,11 @@ const routes: Routes = [
     component: LayoutContainComponent,
     children: [
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'product', component: ProductListComponent },
+
+      {
+        path: 'product',
+         loadChildren: ()=>import('./product/product.module').then(module=>module.ProductModule)
+      },
       { path: 'profile', component: ProfileComponent },
       { path: 'tinh', component: TinhComponent },
       { path: 'huyen', component: HuyenComponent },

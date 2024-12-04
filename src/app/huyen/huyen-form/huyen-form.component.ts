@@ -30,25 +30,28 @@ export class HuyenFormComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    if (this.huyenData){
-      this.createOrEditForm.patchValue(this.huyenData)
-    }
     this.apiTinhService.getFullList().subscribe(
       res=>{
-      this.listSelectTinh=res
+        this.listSelectTinh=res.items
         console.log(this.listSelectTinh)
       },
       err=>{
         console.log('loi',err)
       }
     )
+    if (this.huyenData){
+      this.createOrEditForm.patchValue(this.huyenData)
+
+    }
+
   }
   createOrUpdate() {
     const{maTinh,maHuyen,tenHuyen,cap,isActive,id}=this.createOrEditForm.value;
-    console.log(this.createOrEditForm.value)
+
     this.apiHuyenList.createOrUpdateHuyen(maTinh,maHuyen,tenHuyen,cap,isActive,id).subscribe(
       res=>{
-         alert("thêm thành công");
+        console.log(maTinh,maHuyen,tenHuyen,cap,isActive,id)
+         alert("thành công");
          this.closeForm.emit();
        },
        err=> {

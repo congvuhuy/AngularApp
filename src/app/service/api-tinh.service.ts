@@ -10,11 +10,19 @@ export class ApiTinhService {
   private baseUrl = 'http://test.nghiencuukhoahoc.com.vn/api/master-data/tinh';
   constructor(private http: HttpClient) { }
 
-
-  // Tỉnh
   getFullList(): Observable<any> {
-    const data = { type: 1, cascader: '' };
-    return this.http.post<any>(`http://test.nghiencuukhoahoc.com.vn/api/master-data/select-data-source/get-combo-data-source`, data);
+    const token=localStorage.getItem('access_token')
+    const headers=new HttpHeaders({
+      'Authorization':`Bearer ${token}`,
+      'Content-type': 'application/json'
+    })
+    const body={
+      'filter':null,
+      'isActive':null,
+      skipCount:0,
+      maxResultCount:1000
+    }
+    return this.http.post<any>(`${this.baseUrl}/get-list`,JSON.stringify(body) ,{headers})
   }
   getList(skipCount:number,maxResultCount:number):Observable<any>{
     const token=localStorage.getItem('access_token')
