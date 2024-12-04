@@ -37,6 +37,7 @@ export class XaFormComponent implements OnInit{
     this.apiTinh.getFullList().subscribe(
       res=>{
         this.listFormTinh = res.items;
+        console.log(this.listFormTinh);
       })
   }
   getListHuyenByMaTinh(currentMaTinh: string) {
@@ -48,29 +49,56 @@ export class XaFormComponent implements OnInit{
       )
   }
   ngOnInit(): void {
-    if (this.xaData) {
       this.createOrUpdateForm.patchValue(this.xaData);
+
       this.getListTinh()
-    }
-
-    this.createOrUpdateForm.get('maTinh')?.valueChanges.subscribe(maTinh => {
-      if (maTinh) {
-        console.log('hello')
-        console.log(maTinh)
-        this.getListHuyenByMaTinh(maTinh);
+      this.listFormHuyen=[];
+  }
+  onTinhChange(event: Event) {
+    const selectedMaTinh = (event.target as HTMLSelectElement).value;
+    this.apiHuyen.getListByMaTinh(selectedMaTinh).subscribe(
+      res=>{
+        this.listFormHuyen = res.items;
       }
-    });
-
-    // let currentMaTinh:'' = this.createOrUpdateForm.get('maTinh')?.value;
-    // if (currentMaTinh) {
-    //   this.getListHuyenByMaTinh(currentMaTinh);
-    // }
+    )
   }
-
-
-
   update(){
+    let xaOtd={
+      // 'maTinh': maTinh,
+      // 'maHuyen': maHuyen,
+      // 'maXa': maXa,
+      // 'tenXa':tenXa,
+      // 'cap': cap,
+      // 'isXaNgheo':isXaNgheo,
+      // 'isXaMienNui':isXaMienNui,
+      // 'isXaDanToc':isXaDanToc,
+      // 'isThanhThi':isThanhThi,
+      // 'isActive':isActive
+      'maTinh': '',
+      'maHuyen': '',
+      'maXa': '',
+      'tenXa':'',
+      'cap': '',
+      'isXaNgheo':null,
+      'isXaMienNui':null,
+      'isXaDanToc':null,
+      'isThanhThi':null,
+      'isActive':null
+    }
+    if(this.createOrUpdateForm.valid){
+      xaOtd=this.createOrUpdateForm.value;
+     this.apiXa.createOrUpdate(xaOtd).subscribe(
+       res=>{
+         if(res.isSuccessful){
+           alert("Thành công")
+           this.closeForm.emit();
+         }else {
+           console.log(res.errorMessage)
+         }
+       }
+     )
+    }
+    console.log()
   }
-
 
 }

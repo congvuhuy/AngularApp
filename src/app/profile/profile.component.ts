@@ -76,7 +76,6 @@ export class ProfileComponent implements OnInit {
         res => {
           this.listhuyen = res.items;
           this.listxa = [];
-          console.log(this.maTinh);
         },
         err => {
           console.error('', err);

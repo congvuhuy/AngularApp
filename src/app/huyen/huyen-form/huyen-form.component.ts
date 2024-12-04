@@ -41,7 +41,7 @@ export class HuyenFormComponent implements OnInit{
     )
     if (this.huyenData){
       this.createOrEditForm.patchValue(this.huyenData)
-
+      console.log(this.huyenData)
     }
 
   }

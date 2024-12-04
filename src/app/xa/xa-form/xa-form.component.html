@@ -4,22 +4,24 @@
 </div>
   <div class="card-body">
     <form [formGroup]="createOrUpdateForm" (ngSubmit)="update()">
-      <div class="mb-3">
+      <div *ngIf="xaData" class="mb-3">
         <label class="form-label">Tỉnh/Thành Phố</label>
-        <select class="form-select" formControlName="maTinh">
-          <option *ngFor="let itemTinh of listFormTinh" [value]="xaData.maTinh" >
+        <select class="form-select" (change)="onTinhChange($event)" formControlName="maTinh">
+          <option *ngFor="let itemTinh of listFormTinh" [selected]="itemTinh.maTinh===xaData.maTinh" [value]="itemTinh.maTinh" >
             {{itemTinh.tenTinh}}
           </option>
         </select>
       </div>
-      <div class="mb-3">
+      <div  *ngIf="xaData" class="mb-3">
         <label class="form-label">Huyện/Quận</label>
-        <select class="form-select"  formControlName="maHuyen">
-          <option *ngFor="let itemHuyen of listFormHuyen" [value]="xaData.maHuyen">
-            {{itemHuyen.tenTinh}}
+        <select class="form-select" formControlName="maHuyen">
+          <option *ngFor="let itemHuyen of listFormHuyen" [selected]="itemHuyen.maHuyen===xaData.maHuyen" [value]="itemHuyen.maHuyen">
+            {{itemHuyen.tenHuyen}}
           </option>
         </select>
       </div>
+
+
       <div class="mb-3">
         <label  class="form-label">Mã xã</label>
         <input type="text" class="form-control"  formControlName="maXa">

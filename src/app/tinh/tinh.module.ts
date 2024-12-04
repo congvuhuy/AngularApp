@@ -19,7 +19,8 @@ import {RouterLink} from "@angular/router";
     RouterLink
   ],
   providers: [
-    ApiTinhService
+    ApiTinhService,
+
   ]
 })
 export class TinhModule { }

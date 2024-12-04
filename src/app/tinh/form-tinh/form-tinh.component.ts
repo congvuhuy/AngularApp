@@ -33,10 +33,21 @@ export class FormTinhComponent {
     }
   }
   createOrUpdate() {
+    let tinhDto={
+      'maTinh':'',
+      'tenTinh':'',
+      'cap':'',
+      'isActive':[],
+      'id':[],
+      'vungMien':[],
+      'vungDialy': [],
+      'vungSinhThai':[],
+    }
     if (this.createOrEditForm.valid) {
-      const { maTinh, tenTinh, cap, isActive, id,vungMien, vungDiaLy,vungSinhThai } = this.createOrEditForm.value;
+
+      tinhDto = this.createOrEditForm.value;
       console.log(this.createOrEditForm.value)
-      this.tinhService.createOrUpdateTinh(maTinh, tenTinh, cap, isActive, id,vungMien, vungDiaLy,vungSinhThai).subscribe(
+      this.tinhService.createOrUpdateTinh(tinhDto).subscribe(
         res => {
             this.closeForm.emit();
       });
