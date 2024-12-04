@@ -20,7 +20,7 @@ export class ApiTinhService {
       'filter':null,
       'isActive':null,
       skipCount:0,
-      maxResultCount:1000
+
     }
     return this.http.post<any>(`${this.baseUrl}/get-list`,JSON.stringify(body) ,{headers})
   }

@@ -46,13 +46,25 @@ export class HuyenFormComponent implements OnInit{
 
   }
   createOrUpdate() {
-    const{maTinh,maHuyen,tenHuyen,cap,isActive,id}=this.createOrEditForm.value;
 
-    this.apiHuyenList.createOrUpdateHuyen(maTinh,maHuyen,tenHuyen,cap,isActive,id).subscribe(
+    const{maTinh,maHuyen,tenHuyen,cap,isActive,id}=this.createOrEditForm.value;
+    const submitHuyen={
+      'maTinh':maTinh,
+      'maHuyen':maHuyen,
+      'tenHuyen':tenHuyen,
+      'cap':cap,
+      'isActive':isActive,
+      'id':id
+    }
+
+    this.apiHuyenList.createOrUpdateHuyen(submitHuyen).subscribe(
       res=>{
-        console.log(maTinh,maHuyen,tenHuyen,cap,isActive,id)
-         alert("thành công");
-         this.closeForm.emit();
+        if(res.isSuccessful){
+          alert("thành công");
+          this.closeForm.emit();
+        }else {
+          alert(res.errorMessage)
+        }
        },
        err=> {
         alert("không thành công")
