@@ -13,8 +13,8 @@ export class XaFormComponent implements OnInit{
   @Input() xaData:any;
   @Input() showForm:any;
   @Output() closeForm=new EventEmitter<void>();
-  listFormTinh:any=[];
-  listFormHuyen:any=[];
+  listFormTinh:any[]=[];
+  listFormHuyen:any[]=[];
   createOrUpdateForm: FormGroup;
    maXa:number=0 ;
 
@@ -37,22 +37,27 @@ export class XaFormComponent implements OnInit{
     this.apiTinh.getFullList().subscribe(
       res=>{
         this.listFormTinh = res.items;
-        console.log(this.listFormTinh);
+        this.listFormTinh=Object.values(this.listFormTinh)
       })
   }
   getListHuyenByMaTinh(currentMaTinh: string) {
       this.apiHuyen.getListByMaTinh(currentMaTinh).subscribe(
         res=>{
-          this.listFormHuyen = res;
-          console.log(this.listFormHuyen)
+          this.listFormHuyen=res.items
         }
       )
   }
   ngOnInit(): void {
-      this.createOrUpdateForm.patchValue(this.xaData);
 
-      this.getListTinh()
-      this.listFormHuyen=[];
+      if(this.xaData===null){
+        this.getListTinh()
+        this.listFormHuyen=[];
+      }else{
+        this.createOrUpdateForm.patchValue(this.xaData);
+        this.getListTinh();
+        this.getListHuyenByMaTinh(this.xaData.maTinh)
+      }
+
   }
   onTinhChange(event: Event) {
     const selectedMaTinh = (event.target as HTMLSelectElement).value;
@@ -64,16 +69,6 @@ export class XaFormComponent implements OnInit{
   }
   update(){
     let xaOtd={
-      // 'maTinh': maTinh,
-      // 'maHuyen': maHuyen,
-      // 'maXa': maXa,
-      // 'tenXa':tenXa,
-      // 'cap': cap,
-      // 'isXaNgheo':isXaNgheo,
-      // 'isXaMienNui':isXaMienNui,
-      // 'isXaDanToc':isXaDanToc,
-      // 'isThanhThi':isThanhThi,
-      // 'isActive':isActive
       'maTinh': '',
       'maHuyen': '',
       'maXa': '',
@@ -98,7 +93,7 @@ export class XaFormComponent implements OnInit{
        }
      )
     }
-    console.log()
+
   }
 
 }

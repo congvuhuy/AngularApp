@@ -52,7 +52,7 @@
     </div>
     <div class="col-md-6 align-items-center justify-content-between">
       <label for="huyen" class="form-label">Huyện</label>
-      <select id="huyen" [(ngModel)]="maHuyen" name="huyen" (change)="onHuyenChange()" class="form-control">
+      <select id="huyen" [(ngModel)]="maHuyen" name="huyen" (change)="onHuyenChange()" class="form-control"><!--(change)="onHuyenChange()"-->
         <option *ngFor="let itemHuyen of listhuyen" [value]="itemHuyen.value">{{itemHuyen.tenHuyen}}</option>
       </select>
     </div>

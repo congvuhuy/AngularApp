@@ -2,11 +2,9 @@ import {NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TinhComponent } from './tinh/tinh.component';
 import {ApiTinhService} from "../service/api-tinh.service";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { FormTinhComponent } from './form-tinh/form-tinh.component';
-import {RouterLink} from "@angular/router";
-
-
+import {TinhRoutingModule} from "./tinh-routing.module";
 
 @NgModule({
   declarations: [
@@ -15,8 +13,9 @@ import {RouterLink} from "@angular/router";
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    TinhRoutingModule,
     ReactiveFormsModule,
-    RouterLink
   ],
   providers: [
     ApiTinhService,

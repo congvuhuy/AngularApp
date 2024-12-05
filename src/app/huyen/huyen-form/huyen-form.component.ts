@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ApiTinhService} from "../../service/api-tinh.service";
-import {ApiService} from "../../service/api.service";
+import {AuthService} from "../../service/auth.service";
 import {ApiHuyenService} from "../../service/api-huyen.service";
 
 @Component({

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {APP_INITIALIZER, inject, Injector, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { LayoutModule } from '../layout/layout.module';
@@ -6,13 +6,12 @@ import { ProductModule } from './product/product.module';
 import { AccountModule } from './account/account.module';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ApiService } from './service/api.service';
+import { AuthService } from './service/auth.service';
 import { AppRoutingModule } from './app-routing.module';
 import {ProfileComponent} from "./profile/profile.component";
-import {TinhModule} from "./tinh/tinh.module";
-import {HuyenModule} from "./huyen/huyen.module";
-import {XaModule} from "./xa/xa.module";
 import {AuthInterceptor} from "./intercepter/auth.interceptor";
+import {RouterModule} from "@angular/router";
+import {ManagementModule} from "./management/management.module";
 
 @NgModule({
   declarations: [
@@ -20,6 +19,7 @@ import {AuthInterceptor} from "./intercepter/auth.interceptor";
     ProfileComponent,
   ],
   imports: [
+    RouterModule,
     BrowserModule,
     AppRoutingModule,
     LayoutModule,
@@ -28,14 +28,35 @@ import {AuthInterceptor} from "./intercepter/auth.interceptor";
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    TinhModule,
-    HuyenModule,
-    XaModule
+    ManagementModule,
   ],
   providers: [
-    ApiService,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    AuthService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    {
+      provide:APP_INITIALIZER,
+      useFactory:(injector:Injector)=>()=>{
+        return new Promise<boolean>((resolve,reject)=>{
+          if(localStorage.getItem('access_token')){
+            injector.get(AuthService).getAccountBootstrap().subscribe(
+              res=>{
+                injector.get(AuthService).setPermission(res.grantedPolicies)
+                resolve(true)
+              },
+              err=>{
+                reject(true)
+              }
+            )
+          }else{
+
+          }
+        })
+      },
+      deps: [Injector],
+      multi: true
+    }
   ],
   bootstrap: [AppComponent],
+
 })
 export class AppModule {}

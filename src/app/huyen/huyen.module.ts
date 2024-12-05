@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HuyenComponent } from './huyen/huyen.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { HuyenFormComponent } from './huyen-form/huyen-form.component';
-import {ApiService} from "../service/api.service";
 import {ApiHuyenService} from "../service/api-huyen.service";
+import {HuyenRoutingModule} from "./huyen-routing.module";
 
 
 
@@ -15,11 +15,12 @@ import {ApiHuyenService} from "../service/api-huyen.service";
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    HuyenRoutingModule
   ],
   providers:[
     ApiHuyenService,
-
   ]
 })
 export class HuyenModule { }

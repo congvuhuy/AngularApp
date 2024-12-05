@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../service/api.service';
-import { formatDate } from '@angular/common';
-import {flatMap} from "rxjs";
+import { AuthService } from '../service/auth.service';
+
 import {ApiTinhService} from "../service/api-tinh.service";
 import {ApiHuyenService} from "../service/api-huyen.service";
+import {ApiXaService} from "../service/api-xa.service";
 
 @Component({
   selector: 'app-profile',
@@ -27,15 +27,13 @@ export class ProfileComponent implements OnInit {
   listtinh: any[] = [];
   listhuyen: any[] = [];
   listxa: any[] = [];
-  token: string | null = '';
 
   showImage:boolean=false;
   selectedFile: File | null = null;
-  constructor(private apiService: ApiService,private apiTinhService:ApiTinhService ,private ApiHuyenService:ApiHuyenService) { }
+  constructor(private authService: AuthService, private apiTinhService:ApiTinhService , private ApiHuyenService:ApiHuyenService, private apiXaService:ApiXaService) { }
 
   ngOnInit(): void {
-    this.token = localStorage.getItem('access_token');
-    this.apiService.getAccountBootstrap().subscribe(
+    this.authService.getAccountBootstrap().subscribe(
       res=>{
         this.userId=res.id;
         this.name=res.userSession.name;
@@ -48,19 +46,16 @@ export class ProfileComponent implements OnInit {
         this.maXa=res.userSession.maXa;
         this.phoneNumber=res.userSession.phoneNumber;
         this.email= res.userSession.email;
-
       }
 
     )
-    this.apiService.getImg().subscribe(
+    this.authService.getImg().subscribe(
       res=>{
-        console.log(res)
       }
     )
     this.apiTinhService.getFullList().subscribe(
       res => {
         this.listtinh = res.items;
-        console.log(this.listtinh)
       },
       err => {
         console.error('', err);
@@ -83,19 +78,34 @@ export class ProfileComponent implements OnInit {
       );
     }
   }
+  onHuyenChange():void{
 
-  onHuyenChange(): void {
-    if (this.maHuyen) {
-      this.apiService.getXa(this.maHuyen).subscribe(
-        res => {
-          this.listxa = res;
-        },
-        err => {
-          console.error('', err);
+    console.log('maHuyen,maTinh',this.maHuyen,this.maTinh)
+    if(this.maHuyen && this.maTinh){
+      this.apiXaService.getListByMaHuyen(this.maTinh,this.maHuyen).subscribe(
+        res=>{
+          if (res.success){
+            console.log("danh sach xa:",res)
+          }
+
+        },err => {
+          console.log('err',err.errorMessage)
         }
-      );
+      )
     }
   }
+  // onHuyenChange(): void {
+  //   if (this.maHuyen) {
+  //     this.apiService.getXa(this.maHuyen).subscribe(
+  //       res => {
+  //         this.listxa = res;
+  //       },
+  //       err => {
+  //         console.error('', err);
+  //       }
+  //     );
+  //   }
+  // }
 
   submitProfile() {
     this.data={
@@ -113,9 +123,7 @@ export class ProfileComponent implements OnInit {
       maXa: this.maXa,
     }
 
-    if (this.token !=null && this.token != '') {
-      console.log(this.data)
-      this.apiService.updateAccountInfo(this.data,this.token).subscribe(
+      this.authService.updateAccountInfo(this.data).subscribe(
         res=>{
           alert('thành công')
         },
@@ -123,9 +131,7 @@ export class ProfileComponent implements OnInit {
           alert('thất bại')
         }
       )
-    }else(
-      console.log('khong co token')
-    )
+
 
   }
 
@@ -143,7 +149,7 @@ export class ProfileComponent implements OnInit {
   }
   uploadFile(): void {
     if (this.selectedFile) {
-      this.apiService.uploadImg(this.selectedFile).subscribe(
+      this.authService.uploadImg(this.selectedFile).subscribe(
         res => {
           alert(`Thành công`);
           },
@@ -156,4 +162,5 @@ export class ProfileComponent implements OnInit {
       alert('Chưa có ảnh');
     }
   }
+
 }

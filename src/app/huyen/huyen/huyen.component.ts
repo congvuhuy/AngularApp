@@ -14,19 +14,27 @@ export class HuyenComponent  implements OnInit{
   huyenList:any[]=[];
   selectedHuyen:any;
   showform:boolean= false;
+  filter: string='';
   constructor(private fb: FormBuilder,private apiHuyen:ApiHuyenService) {
-
   }
   ngOnInit(): void {
     this.loadList()
+
   }
   loadList(){
     this.apiHuyen.getList(this.skipCount,this.maxResultCount).subscribe(
       res=>{
+
       this.huyenList=res.items;
     })
   }
-
+  loadFilter() {
+    this.apiHuyen.getListByFilter(this.skipCount,this.maxResultCount,this.filter).subscribe(
+      res=>{
+          this.huyenList=res.items
+      }
+    )
+  }
   create() {
     this.showform=true;
     this.selectedHuyen=null
@@ -61,6 +69,5 @@ export class HuyenComponent  implements OnInit{
     this.currentPage+=1;
     this.loadList()
   }
-
 
 }

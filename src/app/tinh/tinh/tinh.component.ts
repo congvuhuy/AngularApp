@@ -14,11 +14,19 @@ export class TinhComponent implements OnInit {
   selectedTinh: any;
   skipCount = 0;
   maxResultCount = 10
+  filter: string='';
   constructor(private fb: FormBuilder, private apiTinhService: ApiTinhService) {
 
   }
   ngOnInit(): void {
     this.loadList()
+  }
+  loadFilter() {
+    this.apiTinhService.getListByFilter(this.filter,this.skipCount,this.maxResultCount).subscribe(
+      res=>{
+       this.tinhList=res.items;
+      }
+    )
   }
   closeForm(){
       this.showform=false;

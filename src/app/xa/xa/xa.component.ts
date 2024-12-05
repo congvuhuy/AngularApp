@@ -13,10 +13,19 @@ export class XaComponent implements OnInit{
   xaList :any[]=[];
   selectedXa:any;
   showform: boolean=false;
+  filter: string='';
+
   constructor(private apiXa:ApiXaService) {
   }
   ngOnInit(): void {
     this.loadList()
+  }
+  loadFilter() {
+    this.apiXa.getListByFilter(this.filter,this.skipCount,this.maxResultCount).subscribe(
+      res=>{
+        this.xaList=res.items
+      }
+    )
   }
   loadList(){
     this.apiXa.getList(this.skipCount,this.maxResultCount).subscribe(

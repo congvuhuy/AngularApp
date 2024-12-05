@@ -14,6 +14,7 @@ export class FormTinhComponent {
   // @Output() closeForm = new EventEmitter<void>();
   createOrEditForm: FormGroup;
 
+
   constructor(private fb: FormBuilder, private tinhService: ApiTinhService) {
     this.createOrEditForm = this.fb.group({
       maTinh: ['', Validators.required],
@@ -29,9 +30,9 @@ export class FormTinhComponent {
   ngOnInit(): void {
     if (this.tinhData) {
       this.createOrEditForm.patchValue(this.tinhData);
-      console.log(this.tinhData)
     }
   }
+
   createOrUpdate() {
     let tinhDto={
       'maTinh':'',
@@ -53,8 +54,6 @@ export class FormTinhComponent {
       });
     }
   }
-
-
 }
 
 

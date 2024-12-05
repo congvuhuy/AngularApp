@@ -5,15 +5,26 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'any'
 })
-export class ApiService {
+export class AuthService {
+  IsLogin:boolean=false;
+  Permissions :[]=[]
   private baseUrl = 'http://test.nghiencuukhoahoc.com.vn/api';
   constructor(private http: HttpClient) { }
 
+  setPermission(perrmission :any){
+    this.Permissions=perrmission;
+    console.log(this.Permissions)
+  }
+  //getAccount
   getAccountBootstrap(): Observable<any> {
 
     return this.http.get<any>(`${this.baseUrl}/app/account/get-account-bootstrap`,);
   }
-
+  //updateAccount
+  updateAccountInfo(data: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/app/account/update-account-info`, data );
+  }
+  //login
   login(username: string, password: string): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -23,17 +34,17 @@ export class ApiService {
     body.set('password',password);
     return this.http.post<any>(`${this.baseUrl}/app/account/login`, body.toString(), {headers});
   }
+  //logout
   logout(): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/app/account/logout`, {});
   }
-  updateAccountInfo(data: any, token: string): Observable<any> {
+  //
+  checkLogin(){
+    if(localStorage.getItem('access_token'))
+      this.IsLogin=true;
+    return this.IsLogin
+  }
 
-    return this.http.post<any>(`${this.baseUrl}/app/account/update-account-info`, data, );
-  }
-  getXa(maHuyen: string): Observable<any> {
-    const data = { type: 3, cascader: maHuyen };
-    return this.http.post<any>(`${this.baseUrl}/master-data/select-data-source/get-combo-data-source`, data);
-  }
 
   getImg():Observable<any>{
 

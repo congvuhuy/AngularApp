@@ -3,8 +3,12 @@
   <div class="row">
     <div class="col-12">
       <div class="card mb-4">
-        <div class="card-header pb-0">
+        <div class="card-header pb-0 d-flex justify-content-between">
           <h6>Quản lý xã</h6>
+          <div class="input-group w-md-40">
+            <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
+            <input [(ngModel)]="filter" (input)="loadFilter()" type="text" class="form-control" placeholder="nhập mã/ tên xã">
+          </div>
         </div>
         <div class="card-body px-0 pt-0 pb-2">
           <div class="table-responsive p-0">
@@ -24,7 +28,9 @@
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Xã miền núi</th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Là thành thị</th>
                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Hoạt dộng</th>
-                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><button (click)="create()"  class="btn btn-primary btn-sm">Thêm</button></th>
+                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">
+                  <button (click)="create()"  class="btn btn-outline-success btn-sm text-secondary">Thêm</button>
+                </th>
               </tr>
               </thead>
               <tbody>
@@ -78,8 +84,8 @@
                   <span *ngIf="!itemXa.isActive" class="badge badge-sm bg-gradient-danger">Off</span>
                 </td>
                 <td class="align-middle">
-                  <button class="btn btn-secondary btn-sm" (click)="edit(itemXa)">Sửa</button>
-                  <button class="btn btn-danger btn-sm" (click)="delete(itemXa.id)">Xoá</button>
+                  <button class="btn btn-outline-info btn-sm text-secondary font-weight-bold text-xs" (click)="edit(itemXa)">Sửa</button>
+                  <button class="btn btn-outline-danger btn-sm text-secondary font-weight-bold text-xs" (click)="delete(itemXa.id)">Xoá</button>
                 </td>
               </tr>
               </tbody>

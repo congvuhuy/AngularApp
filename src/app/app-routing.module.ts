@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {model, NgModule} from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutContainComponent } from '../layout/layout-contain/layout-contain.component';
 import { LayoutLoginSignupComponent } from './account/layout-login-signup/layout-login-signup.component';
@@ -6,26 +6,25 @@ import { DashboardComponent } from './page/dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
 import { LoginComponent } from './account/login/login.component';
 import { SignupComponent } from './account/signup/signup.component';
-import {TinhComponent} from "./tinh/tinh/tinh.component";
-import {HuyenComponent} from "./huyen/huyen/huyen.component";
-import {XaComponent} from "./xa/xa/xa.component";
+
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+   // { path: '**', redirectTo: 'error', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
     path: '',
     component: LayoutContainComponent,
     children: [
       { path: 'dashboard', component: DashboardComponent },
-
+      { path: 'profile', component: ProfileComponent },
       {
         path: 'product',
          loadChildren: ()=>import('./product/product.module').then(module=>module.ProductModule)
       },
-      { path: 'profile', component: ProfileComponent },
-      { path: 'tinh', component: TinhComponent },
-      { path: 'huyen', component: HuyenComponent },
-      { path: 'xa', component: XaComponent }
+      {
+        path:'management',
+        loadChildren: ()=>import ('./management/management.module').then(module=>module.ManagementModule)
+      },
     ],
   },
   {

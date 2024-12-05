@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient,HttpHeaders} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {Observable, skip} from "rxjs";
 
 @Injectable({
   providedIn: 'any'
@@ -10,18 +10,24 @@ export class ApiHuyenService {
   private token=localStorage.getItem('access_token')
   constructor(private http: HttpClient) {
   }
+  getListByFilter(skipCount:number,maxResultCount:number,filter:string ):Observable<any>{
+    const body={
+      skipCount,
+        maxResultCount,
+      filter
+    }
+    return this.http.post<any>(`${this.base_Url}/get-list`,body)
+  }
+  //
   getListByMaTinh(maTinh: string): Observable<any> {
-    const headers=new HttpHeaders({
-      'Authorization':`Bearer ${this.token}`,
-      'Content-type':'application/json'
-    })
     const body = {
       "maTinh": maTinh,
       "skipCount":0,
       "maxResultCount":1000
     };
-    return this.http.post<any>(`${this.base_Url}/get-list`,body,{headers},);
+    return this.http.post<any>(`${this.base_Url}/get-list`,body,);
   }
+  //
   getList(skipCount:number,maxResultCount:number):Observable<any>{
 
     const body={

@@ -2,6 +2,7 @@
   <div class="card-header">
     <h5 *ngIf="tinhData">Cập nhật tỉnh</h5>
     <h5 *ngIf="!tinhData">Thêm tỉnh</h5>
+
   </div>
   <div class="card-body">
     <form [formGroup]="createOrEditForm" (ngSubmit)="createOrUpdate()">

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
 import {Router} from "@angular/router";
-import {ApiService} from "../../service/api.service";
+import {AuthService} from "../../service/auth.service";
 import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
 
 @Component({
@@ -13,11 +13,12 @@ export class LoginComponent implements OnInit{
   username: string='';
   password: string='';
   user_access_token: string=''
-  constructor(private apiService: ApiService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router) {
   }
   login(username: string, password: string) {
-    this.apiService.login(username, password).subscribe(
+    this.authService.login(username, password).subscribe(
       res=>{
+        console.log(res)
         if(res.access_token != null){
           this.user_access_token=res.access_token
           this.router.navigate(['/dashboard'])

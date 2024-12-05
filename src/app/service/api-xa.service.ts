@@ -10,10 +10,28 @@ export class ApiXaService {
   private token=localStorage.getItem('access_token')
   constructor(private http: HttpClient) { }
 //getList
+  getListByFilter(filter:string,skipCount:number,maxResultCount:number): Observable<any> {
+    const body={
+      filter,
+      'isActive':null,
+      skipCount:0,
+      maxResultCount:1000
+    }
+    return this.http.post<any>(`${this.base_Url}/get-list`,JSON.stringify(body) )
+  }
+
+  getListByMaHuyen(maTinh:string, maHuyen:string):Observable<any>{
+    const body={
+      'skipCount':0,
+      'maxResultCount':10000,
+      'maTinh':maTinh,
+      'maHuyen':maHuyen
+    }
+    return this.http.post<any>(`${this.base_Url}/get-list`,JSON.stringify(body),)
+  }
   getList(skipCount:number,maxResultCount:number):Observable<any>{
     const body={
-      'filter': null,
-      'isActive':null,
+
       skipCount,
       maxResultCount
     }

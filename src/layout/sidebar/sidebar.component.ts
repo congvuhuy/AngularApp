@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ApiService} from "../../app/service/api.service";
+import {AuthService} from "../../app/service/auth.service";
 import {Router} from "@angular/router";
 
 @Component({
@@ -9,10 +9,10 @@ import {Router} from "@angular/router";
 })
 export class SidebarComponent {
 
-  constructor(private apiService : ApiService, private router: Router) {
+  constructor(private authService : AuthService, private router: Router) {
   }
   logout(){
-    this.apiService.logout().subscribe(
+    this.authService.logout().subscribe(
       res=>{
        localStorage.clear()
         console.log('da dang xuat')

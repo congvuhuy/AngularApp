@@ -10,19 +10,26 @@ export class ApiTinhService {
   private baseUrl = 'http://test.nghiencuukhoahoc.com.vn/api/master-data/tinh';
   constructor(private http: HttpClient) { }
 
+  getListByFilter(filter:string,skipCount:number,maxResultCount:number): Observable<any> {
+    const body={
+      filter,
+      'isActive':null,
+      skipCount:0,
+      maxResultCount:1000
+    }
+    return this.http.post<any>(`${this.baseUrl}/get-list`,JSON.stringify(body) )
+  }
+
   getFullList(): Observable<any> {
     const token=localStorage.getItem('access_token')
-    const headers=new HttpHeaders({
-      'Authorization':`Bearer ${token}`,
-      'Content-type': 'application/json'
-    })
+
     const body={
       'filter':null,
       'isActive':null,
       skipCount:0,
       maxResultCount:1000
     }
-    return this.http.post<any>(`${this.baseUrl}/get-list`,JSON.stringify(body) ,{headers})
+    return this.http.post<any>(`${this.baseUrl}/get-list`,JSON.stringify(body))
   }
   getList(skipCount:number,maxResultCount:number):Observable<any>{
     const token=localStorage.getItem('access_token')

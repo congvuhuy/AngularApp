@@ -6,6 +6,7 @@ import {Injectable} from "@angular/core";
 export class AuthInterceptor implements HttpInterceptor {
   constructor() {
   }
+
   intercept(req: HttpRequest<any>, handler: HttpHandler): Observable<HttpEvent<any>> {
 
     const token = localStorage.getItem('access_token');
@@ -16,15 +17,14 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   private addTokenHeader(request: HttpRequest<any>, token: string) {
-    return request.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type":'application/json',
-      }
-    });
+    let headers = request.headers.set('Authorization', `Bearer ${token}`);
+    if (!request.headers.has('Content-Type')) {
+        headers = headers.set('Content-Type', 'application/json');
+    }
+
+    return request.clone({headers});
   }
 }
-
 export const authInterceptorProviders = [
   {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
 ];
