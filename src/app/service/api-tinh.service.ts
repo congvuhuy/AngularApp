@@ -15,7 +15,7 @@ export class ApiTinhService {
       filter,
       'isActive':null,
       skipCount:0,
-      maxResultCount:1000
+      maxResultCount:10
     }
     return this.http.post<any>(`${this.baseUrl}/get-list`,JSON.stringify(body) )
   }

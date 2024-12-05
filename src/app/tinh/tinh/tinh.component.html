@@ -6,8 +6,8 @@
         <div class="card-header pb-0 d-flex justify-content-between">
           <h6>Quản lý tỉnh</h6>
           <div class="input-group w-md-40">
-            <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-            <input [(ngModel)]="filter" (input)="loadFilter()" type="text" class="form-control" placeholder="nhập mã/ tên tỉnh">
+            <span class="input-group-text text-body " style="cursor: pointer" (click)="loadFilter()"><i class="fas fa-search" aria-hidden="true"></i></span>
+            <input id="filter"  [(ngModel)]="filter"  type="text" class="form-control" placeholder="nhập mã/ tên tỉnh">
           </div>
         </div>
         <div class="card-body px-0 pt-0 pb-2">
@@ -82,7 +82,7 @@
         </div>
       </div>
         <button class="btn" (click)="prevPage()" [disabled]="skipCount === 0">Previous</button>
-        <button class="btn" (click)="nextPage()" >Next</button>
+        <button class="btn" (click)="nextPage()" [disabled]="skipCount+maxResultCount>=totalItem">Next</button>
     </div>
   </div>
 

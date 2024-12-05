@@ -11,7 +11,6 @@ export class FormTinhComponent {
   @Input() tinhData: any;
   @Input() showForm: any;
   @Output() closeForm = new EventEmitter<void>();
-  // @Output() closeForm = new EventEmitter<void>();
   createOrEditForm: FormGroup;
 
 
@@ -45,7 +44,6 @@ export class FormTinhComponent {
       'vungSinhThai':[],
     }
     if (this.createOrEditForm.valid) {
-
       tinhDto = this.createOrEditForm.value;
       console.log(this.createOrEditForm.value)
       this.tinhService.createOrUpdateTinh(tinhDto).subscribe(

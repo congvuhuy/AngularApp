@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiHuyenService} from "../../service/api-huyen.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {ApiTinhService} from "../../service/api-tinh.service";
 
 @Component({
   selector: 'app-huyen',
@@ -15,26 +16,53 @@ export class HuyenComponent  implements OnInit{
   selectedHuyen:any;
   showform:boolean= false;
   filter: string='';
-  constructor(private fb: FormBuilder,private apiHuyen:ApiHuyenService) {
+  tinhList: any[]=[];
+  constructor(private fb: FormBuilder,private apiHuyen:ApiHuyenService, private apiTinh:ApiTinhService) {
   }
   ngOnInit(): void {
+    this.loadListTinh()
     this.loadList()
-
+    const inputElement= document.getElementById('filter');
+    if (inputElement){
+      inputElement.onkeydown = (event: KeyboardEvent) => {
+        if(event.key==='Enter')
+          this.loadFilter()
+      }
+    }
   }
+
   loadList(){
     this.apiHuyen.getList(this.skipCount,this.maxResultCount).subscribe(
       res=>{
-
-      this.huyenList=res.items;
-    })
+        this.huyenList=res.items;
+      })
+  }
+  //form search
+  loadListTinh(){
+    this.apiTinh.getFullList().subscribe(
+      res=>{
+        this.tinhList=res.items;
+      }
+    )
+  }
+  onTinhChange(event: Event) {
+    const selectedMaTinh = (event.target as HTMLSelectElement).value;
+    this.apiHuyen.getListByMaTinh(selectedMaTinh).subscribe(
+      res=>{
+        this.huyenList = res.items;
+      }
+    )
   }
   loadFilter() {
     this.apiHuyen.getListByFilter(this.skipCount,this.maxResultCount,this.filter).subscribe(
       res=>{
-          this.huyenList=res.items
+        this.huyenList=res.items
       }
     )
   }
+
+  //control form edit or create
+
   create() {
     this.showform=true;
     this.selectedHuyen=null
@@ -55,6 +83,7 @@ export class HuyenComponent  implements OnInit{
     this.showform=false;
     this.loadList()
   }
+  //form index
   prevPage() {
     if (this.skipCount>0){
       this.skipCount=this.skipCount-this.maxResultCount
@@ -69,5 +98,6 @@ export class HuyenComponent  implements OnInit{
     this.currentPage+=1;
     this.loadList()
   }
+
 
 }

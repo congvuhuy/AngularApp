@@ -16,7 +16,6 @@ export class HuyenFormComponent implements OnInit{
   createOrEditForm: FormGroup;
   listSelectTinh :any;
 
-  currentTinhText:string= '';
   constructor(private fb:FormBuilder,private apiTinhService: ApiTinhService, private apiHuyenList: ApiHuyenService) {
 
     this.createOrEditForm=this.fb.group({
@@ -33,7 +32,6 @@ export class HuyenFormComponent implements OnInit{
     this.apiTinhService.getFullList().subscribe(
       res=>{
         this.listSelectTinh=res.items
-        console.log(this.listSelectTinh)
       },
       err=>{
         console.log('loi',err)
@@ -41,7 +39,6 @@ export class HuyenFormComponent implements OnInit{
     )
     if (this.huyenData){
       this.createOrEditForm.patchValue(this.huyenData)
-      console.log(this.huyenData)
     }
 
   }

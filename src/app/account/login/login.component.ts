@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit{
   constructor(private authService: AuthService, private router: Router) {
   }
   login(username: string, password: string) {
+
     this.authService.login(username, password).subscribe(
       res=>{
         console.log(res)
@@ -36,6 +37,9 @@ export class LoginComponent implements OnInit{
     // if(localStorage.getItem('access_token')){
     //   this.router.navigate(['/dashboard']);
     // }
+    if(localStorage.getItem('access_token')){
+      this.router.navigate(['/dashboard'])
+    }
   }
 
 }

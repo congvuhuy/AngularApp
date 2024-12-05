@@ -47,7 +47,6 @@ export class ProfileComponent implements OnInit {
         this.phoneNumber=res.userSession.phoneNumber;
         this.email= res.userSession.email;
       }
-
     )
     this.authService.getImg().subscribe(
       res=>{
@@ -61,51 +60,44 @@ export class ProfileComponent implements OnInit {
         console.error('', err);
       }
     );
+    this.getHuyenByMaTinh(this.maTinh)
+    this.getXaByMaTinhMaHuyen(this.maTinh,this.maXa)
+
+  }
+
+  getXaByMaTinhMaHuyen(maTinh: string,maHuyen:string){
+    this.apiXaService.getListByMaHuyenMaTinh(maTinh,maHuyen).subscribe(
+      res=>{
+        this.listxa=res.items;
+      }
+    )
+  }
+  getHuyenByMaTinh(maTinh:string){
+    this.ApiHuyenService.getListByMaTinh(this.maTinh).subscribe(
+      res => {
+        this.listhuyen = res.items;
+
+      },
+      err => {
+        console.error('', err);
+      }
+    );
+  }
+
+  onTinhChange(): void {
+    if (this.maTinh) {
+      this.getHuyenByMaTinh(this.maTinh);
+      this.listxa=[];
+    }
+  }
+  onHuyenChange():void{
+    if(this.maHuyen && this.maTinh){
+      this.getXaByMaTinhMaHuyen(this.maTinh,this.maHuyen)
+    }
   }
   convertToDate(isoString: string): string {
     return new Date(isoString).toISOString().split('T')[0];
   }
-  onTinhChange(): void {
-    if (this.maTinh) {
-      this.ApiHuyenService.getListByMaTinh(this.maTinh).subscribe(
-        res => {
-          this.listhuyen = res.items;
-          this.listxa = [];
-        },
-        err => {
-          console.error('', err);
-        }
-      );
-    }
-  }
-  onHuyenChange():void{
-
-    console.log('maHuyen,maTinh',this.maHuyen,this.maTinh)
-    if(this.maHuyen && this.maTinh){
-      this.apiXaService.getListByMaHuyen(this.maTinh,this.maHuyen).subscribe(
-        res=>{
-          if (res.success){
-            console.log("danh sach xa:",res)
-          }
-
-        },err => {
-          console.log('err',err.errorMessage)
-        }
-      )
-    }
-  }
-  // onHuyenChange(): void {
-  //   if (this.maHuyen) {
-  //     this.apiService.getXa(this.maHuyen).subscribe(
-  //       res => {
-  //         this.listxa = res;
-  //       },
-  //       err => {
-  //         console.error('', err);
-  //       }
-  //     );
-  //   }
-  // }
 
   submitProfile() {
     this.data={
@@ -142,7 +134,7 @@ export class ProfileComponent implements OnInit {
   onFileSelected(event: Event): void {
 
     const input = event.target as HTMLInputElement;
-    console.log(input.files)
+
     if (input.files ) {
       this.selectedFile = input.files[0];
     }

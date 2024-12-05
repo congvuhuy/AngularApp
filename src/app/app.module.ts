@@ -33,28 +33,28 @@ import {ManagementModule} from "./management/management.module";
   providers: [
     AuthService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    {
-      provide:APP_INITIALIZER,
-      useFactory:(injector:Injector)=>()=>{
-        return new Promise<boolean>((resolve,reject)=>{
-          if(localStorage.getItem('access_token')){
-            injector.get(AuthService).getAccountBootstrap().subscribe(
-              res=>{
-                injector.get(AuthService).setPermission(res.grantedPolicies)
-                resolve(true)
-              },
-              err=>{
-                reject(true)
-              }
-            )
-          }else{
-
-          }
-        })
-      },
-      deps: [Injector],
-      multi: true
-    }
+    // {
+    //   provide:APP_INITIALIZER,
+    //   useFactory:(injector:Injector)=>()=>{
+    //     return new Promise<boolean>((resolve,reject)=>{
+    //       if(localStorage.getItem('access_token')){
+    //         injector.get(AuthService).getAccountBootstrap().subscribe(
+    //           res=>{
+    //             injector.get(AuthService).setPermission(res.grantedPolicies)
+    //             resolve(true)
+    //           },
+    //           err=>{
+    //             reject(true)
+    //           }
+    //         )
+    //       }else{
+    //
+    //       }
+    //     })
+    //   },
+    //   deps: [Injector],
+    //   multi: true
+    // }
   ],
   bootstrap: [AppComponent],
 

@@ -14,16 +14,24 @@ export class ApiXaService {
     const body={
       filter,
       'isActive':null,
-      skipCount:0,
-      maxResultCount:1000
+      skipCount,
+      maxResultCount
     }
     return this.http.post<any>(`${this.base_Url}/get-list`,JSON.stringify(body) )
   }
-
-  getListByMaHuyen(maTinh:string, maHuyen:string):Observable<any>{
+  getListByMaTinh(maTinh:string):Observable<any>{
     const body={
       'skipCount':0,
-      'maxResultCount':10000,
+      'maxResultCount':1000,
+      'maTinh':maTinh,
+    }
+    return this.http.post<any>(`${this.base_Url}/get-list`,JSON.stringify(body),)
+  }
+  //
+  getListByMaHuyenMaTinh(maTinh:string, maHuyen:string):Observable<any>{
+    const body={
+      'skipCount':0,
+      'maxResultCount':1000,
       'maTinh':maTinh,
       'maHuyen':maHuyen
     }

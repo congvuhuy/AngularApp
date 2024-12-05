@@ -15,12 +15,22 @@ export class TinhComponent implements OnInit {
   skipCount = 0;
   maxResultCount = 10
   filter: string='';
+  totalItem: number=0;
   constructor(private fb: FormBuilder, private apiTinhService: ApiTinhService) {
 
   }
   ngOnInit(): void {
-    this.loadList()
+    this.loadList();
+    const inputElement= document.getElementById('filter');
+    if (inputElement){
+      inputElement.onkeydown = (event: KeyboardEvent) => {
+        if(event.key==='Enter')
+        this.loadFilter()
+      }
+    }
+
   }
+
   loadFilter() {
     this.apiTinhService.getListByFilter(this.filter,this.skipCount,this.maxResultCount).subscribe(
       res=>{
@@ -35,18 +45,23 @@ export class TinhComponent implements OnInit {
   loadList(): void {
     this.apiTinhService.getList(this.skipCount, this.maxResultCount).subscribe(
       res => {
+        console.log(res)
         this.tinhList = res.items;
+        this.totalItem=res.totalCount;
       });
   }
   nextPage(): void {
-    this.skipCount += this.maxResultCount;
-    this.currentPage=this.skipCount/10
-    this.loadList();
+    if(this.skipCount<this.totalItem-10){
+      this.skipCount += this.maxResultCount;
+      this.currentPage=this.skipCount/10
+      this.loadList();
+    }
+
   }
   prevPage(): void {
-    if (this.skipCount > 0) {
+    if (this.skipCount > this.skipCount-1) {
       this.skipCount -= this.maxResultCount;
-      this.currentPage=this.skipCount/10
+      this.currentPage=this.skipCount/10;
       this.loadList();
     }
   }
@@ -64,4 +79,6 @@ export class TinhComponent implements OnInit {
     this.selectedTinh = null;
     this.showform=true;
   }
+
+
 }

@@ -18,6 +18,8 @@ export class ApiHuyenService {
     }
     return this.http.post<any>(`${this.base_Url}/get-list`,body)
   }
+
+
   //
   getListByMaTinh(maTinh: string): Observable<any> {
     const body = {
