@@ -9,13 +9,14 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 })
 export class TinhComponent implements OnInit {
   showform =false;
-  currentPage=0;
+  currentPage=1;
   tinhList: any[] = [];
   selectedTinh: any;
   skipCount = 0;
   maxResultCount = 10
   filter: string='';
   totalItem: number=0;
+  lastPage: number=0;
   constructor(private fb: FormBuilder, private apiTinhService: ApiTinhService) {
 
   }
@@ -32,38 +33,31 @@ export class TinhComponent implements OnInit {
   }
 
   loadFilter() {
-    this.apiTinhService.getListByFilter(this.filter,this.skipCount,this.maxResultCount).subscribe(
-      res=>{
-       this.tinhList=res.items;
-      }
-    )
+   this.loadList()
   }
   closeForm(){
       this.showform=false;
     this.loadList()
   }
   loadList(): void {
-    this.apiTinhService.getList(this.skipCount, this.maxResultCount).subscribe(
+    this.apiTinhService.getList(this.filter,this.skipCount, this.maxResultCount).subscribe(
       res => {
-        console.log(res)
+
         this.tinhList = res.items;
         this.totalItem=res.totalCount;
+        this.lastPage=Math.floor(this.totalItem/this.maxResultCount)
       });
   }
   nextPage(): void {
-    if(this.skipCount<this.totalItem-10){
-      this.skipCount += this.maxResultCount;
-      this.currentPage=this.skipCount/10
-      this.loadList();
-    }
+    this.skipCount+=this.maxResultCount
+    this.loadList()
+    this.currentPage+=1
 
   }
   prevPage(): void {
-    if (this.skipCount > this.skipCount-1) {
-      this.skipCount -= this.maxResultCount;
-      this.currentPage=this.skipCount/10;
-      this.loadList();
-    }
+    this.skipCount -= this.maxResultCount;
+    this.loadList();
+    this.currentPage-=1
   }
   edit(tinh: any) {
     this.showform=true;

@@ -10,30 +10,20 @@ export class ApiHuyenService {
   private token=localStorage.getItem('access_token')
   constructor(private http: HttpClient) {
   }
-  getListByFilter(skipCount:number,maxResultCount:number,filter:string ):Observable<any>{
-    const body={
-      skipCount,
-        maxResultCount,
-      filter
-    }
-    return this.http.post<any>(`${this.base_Url}/get-list`,body)
-  }
-
-
   //
-  getListByMaTinh(maTinh: string): Observable<any> {
+  getListByMaTinh(maTinh: string,skipCount:number,maxResultCount:number): Observable<any> {
     const body = {
       "maTinh": maTinh,
-      "skipCount":0,
-      "maxResultCount":1000
+      skipCount,
+      maxResultCount
     };
     return this.http.post<any>(`${this.base_Url}/get-list`,body,);
   }
   //
-  getList(skipCount:number,maxResultCount:number):Observable<any>{
-
+  getList(maTinh:string,filter:string,skipCount:number,maxResultCount:number):Observable<any>{
     const body={
-      "filter": null,
+      maTinh,
+      filter,
       "isActive": null,
       skipCount,
       maxResultCount

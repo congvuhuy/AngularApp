@@ -81,8 +81,19 @@
           </div>
         </div>
       </div>
-        <button class="btn" (click)="prevPage()" [disabled]="skipCount === 0">Previous</button>
-        <button class="btn" (click)="nextPage()" [disabled]="skipCount+maxResultCount>=totalItem">Next</button>
+      <div class="pagination">
+        <button class="btn" (click)="prevPage()" [disabled]="currentPage <= 1">Previous</button>
+        <button *ngIf="currentPage>5" (click)="currentPage=1" class="btn">1</button>
+        <button  *ngIf="currentPage>5" class="btn">...</button>
+        <button (click)="currentPage=currentPage-2" *ngIf="currentPage>2" class="btn">{{currentPage-2}}</button>
+        <button (click)="currentPage=currentPage-1" *ngIf="currentPage>1" class="btn">{{currentPage-1}}</button>
+        <button class="btn active" >{{currentPage}}</button>
+        <button (click)="currentPage=currentPage+1" *ngIf="currentPage<lastPage-1" class="btn">{{currentPage+1}}</button>
+        <button (click)="currentPage=currentPage+2" *ngIf="currentPage<lastPage-2" class="btn">{{currentPage+2}}</button>
+        <button *ngIf="currentPage<lastPage-3" class="btn">...</button>
+        <button *ngIf="currentPage<lastPage-3" (click)="currentPage=lastPage" class="btn">{{lastPage}}</button>
+        <button class="btn" (click)="nextPage()" [disabled]="currentPage>=lastPage" >Next</button>
+      </div>
     </div>
   </div>
 

@@ -14,53 +14,49 @@ export class HuyenComponent  implements OnInit{
   maxResultCount = 10;
   huyenList:any[]=[];
   selectedHuyen:any;
-  showform:boolean= false;
-  filter: string='';
+  showform: boolean= false;
   tinhList: any[]=[];
+
+  filter: string='';
+  selectedMaTinh:string='';
+  totalItem: number=0;
+  lastPage:number=0
   constructor(private fb: FormBuilder,private apiHuyen:ApiHuyenService, private apiTinh:ApiTinhService) {
   }
   ngOnInit(): void {
-    this.loadListTinh()
     this.loadList()
+    this.loadListTinh()
     const inputElement= document.getElementById('filter');
     if (inputElement){
       inputElement.onkeydown = (event: KeyboardEvent) => {
         if(event.key==='Enter')
-          this.loadFilter()
+          this.loadList()
       }
     }
   }
 
   loadList(){
-    this.apiHuyen.getList(this.skipCount,this.maxResultCount).subscribe(
+
+    this.apiHuyen.getList(this.selectedMaTinh,this.filter,this.skipCount,this.maxResultCount).subscribe(
       res=>{
-        this.huyenList=res.items;
+          this.huyenList=res.items;
+        this.totalItem=res.totalCount;
+        this.lastPage=Math.floor(this.totalItem/this.maxResultCount)
       })
   }
   //form search
   loadListTinh(){
-    this.apiTinh.getFullList().subscribe(
+    this.apiTinh.getList('',0,1000).subscribe(
       res=>{
         this.tinhList=res.items;
       }
     )
   }
   onTinhChange(event: Event) {
-    const selectedMaTinh = (event.target as HTMLSelectElement).value;
-    this.apiHuyen.getListByMaTinh(selectedMaTinh).subscribe(
-      res=>{
-        this.huyenList = res.items;
-      }
-    )
+    this.selectedMaTinh = (event.target as HTMLSelectElement).value;
+    this.currentPage=1;
+    this.loadList()
   }
-  loadFilter() {
-    this.apiHuyen.getListByFilter(this.skipCount,this.maxResultCount,this.filter).subscribe(
-      res=>{
-        this.huyenList=res.items
-      }
-    )
-  }
-
   //control form edit or create
 
   create() {
@@ -80,16 +76,16 @@ export class HuyenComponent  implements OnInit{
     this.selectedHuyen=itemHuyen;
   }
   closeForm() {
-    this.showform=false;
+      this.showform=false;
     this.loadList()
   }
   //form index
+
+
   prevPage() {
-    if (this.skipCount>0){
-      this.skipCount=this.skipCount-this.maxResultCount
-    }
-    this.currentPage-=1;
-    this.loadList()
+    this.skipCount -= this.maxResultCount;
+    this.loadList();
+    this.currentPage-=1
 
   }
 

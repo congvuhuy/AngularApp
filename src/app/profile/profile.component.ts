@@ -52,7 +52,7 @@ export class ProfileComponent implements OnInit {
       res=>{
       }
     )
-    this.apiTinhService.getFullList().subscribe(
+    this.apiTinhService.getList('',0,1000).subscribe(
       res => {
         this.listtinh = res.items;
       },
@@ -66,17 +66,16 @@ export class ProfileComponent implements OnInit {
   }
 
   getXaByMaTinhMaHuyen(maTinh: string,maHuyen:string){
-    this.apiXaService.getListByMaHuyenMaTinh(maTinh,maHuyen).subscribe(
+    this.apiXaService.getList(maTinh,maHuyen,0,1000,'').subscribe(
       res=>{
         this.listxa=res.items;
       }
     )
   }
   getHuyenByMaTinh(maTinh:string){
-    this.ApiHuyenService.getListByMaTinh(this.maTinh).subscribe(
+    this.ApiHuyenService.getListByMaTinh(this.maTinh,0,1000).subscribe(
       res => {
         this.listhuyen = res.items;
-
       },
       err => {
         console.error('', err);

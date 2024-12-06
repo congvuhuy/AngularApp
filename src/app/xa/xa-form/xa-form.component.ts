@@ -16,7 +16,7 @@ export class XaFormComponent implements OnInit{
   listFormTinh:any[]=[];
   listFormHuyen:any[]=[];
   createOrUpdateForm: FormGroup;
-   maXa:number=0 ;
+  maXa:number=0 ;
 
   constructor(private fb:FormBuilder, private apiTinh:ApiTinhService, private apiHuyen:ApiHuyenService, private apiXa:ApiXaService) {
     this.createOrUpdateForm=this.fb.group({
@@ -30,18 +30,19 @@ export class XaFormComponent implements OnInit{
       isXaDanToc:[true],
       isThanhThi:[true],
       isActive:[true],
+      id:[0]
     })
 
   }
   getListTinh(){
-    this.apiTinh.getFullList().subscribe(
+    this.apiTinh.getList('',0,1000).subscribe(
       res=>{
         this.listFormTinh = res.items;
         this.listFormTinh=Object.values(this.listFormTinh)
       })
   }
   getListHuyenByMaTinh(currentMaTinh: string) {
-      this.apiHuyen.getListByMaTinh(currentMaTinh).subscribe(
+      this.apiHuyen.getListByMaTinh(currentMaTinh,0,1000).subscribe(
         res=>{
           this.listFormHuyen=res.items
         }
@@ -61,7 +62,7 @@ export class XaFormComponent implements OnInit{
   }
   onTinhChange(event: Event) {
     const selectedMaTinh = (event.target as HTMLSelectElement).value;
-    this.apiHuyen.getListByMaTinh(selectedMaTinh).subscribe(
+    this.apiHuyen.getListByMaTinh(selectedMaTinh,0,1000).subscribe(
       res=>{
         this.listFormHuyen = res.items;
       }
@@ -88,7 +89,7 @@ export class XaFormComponent implements OnInit{
            alert("Thành công")
            this.closeForm.emit();
          }else {
-           console.log(res.errorMessage)
+           alert(res.errorMessage)
          }
        }
      )

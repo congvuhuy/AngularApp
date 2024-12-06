@@ -15,46 +15,52 @@ export class XaComponent implements OnInit{
   xaList :any[]=[];
   selectedXa:any;
   showform: boolean=false;
-  filter: string='';
+
   tinhList: any[]=[];
   huyenList:any[]=[];
+  totalItem:number=0;
   selectedMaTinh: string='';
-
+  selectedMaHuyen: string='';
+  filter: string='';
+  lastPage:number=0;
   constructor(private apiXa:ApiXaService ,private apiHuyen:ApiHuyenService, private apiTinh:ApiTinhService) {
   }
   ngOnInit(): void {
-    this.loadList()
+    this.loadList();
     this.loadListTinh()
     const inputElement= document.getElementById('filter');
     if (inputElement){
       inputElement.onkeydown = (event: KeyboardEvent) => {
         if(event.key==='Enter')
         {
-          this.loadFilter()
+          this.loadList()
         }
       }
     }
   }
+  reload(){
+    this.apiXa.getList('', '',0, 10,'').subscribe(
+      res=>{
+        this.xaList=res.items;
+        this.totalItem=res.totalCount;
+        this.lastPage=Math.floor(this.totalItem/this.maxResultCount)
+      }
+    )
+  }
   loadList(){
-    this.apiXa.getList(this.skipCount,this.maxResultCount).subscribe(
+    this.apiXa.getList(this.selectedMaTinh, this.selectedMaHuyen,this.skipCount, this.maxResultCount,this.filter).subscribe(
       res=>{
-        this.xaList=res.items;
-      }
-    )
-  }
-  loadListXaByMaTinh(maTinh:string){
-    this.apiXa.getListByMaTinh(maTinh).subscribe(
-      res=>{
-        if(res.Successfull){
 
-        }
         this.xaList=res.items;
+        this.totalItem=res.totalCount;
+        this.lastPage=Math.floor(this.totalItem/this.maxResultCount)
       }
     )
   }
+
   // search and filter
   loadListTinh(){
-    this.apiTinh.getFullList().subscribe(
+    this.apiTinh.getList('',this.skipCount,this.maxResultCount).subscribe(
       res=>{
         this.tinhList=res.items;
       }
@@ -63,31 +69,20 @@ export class XaComponent implements OnInit{
   onTinhChange(event: Event) {
     var selectedMaTinh = (event.target as HTMLSelectElement).value;
     this.selectedMaTinh=selectedMaTinh;
-    this.loadListXaByMaTinh(selectedMaTinh);
-    this.apiHuyen.getListByMaTinh(selectedMaTinh).subscribe(
+    this.loadList();
+    this.currentPage=1
+    this.apiHuyen.getList(this.selectedMaTinh,'',this.skipCount,this.maxResultCount).subscribe(
       res=>{
         this.huyenList = res.items;
       }
     )
   }
   onHuyenChange(event: Event) {
-    const selectedMaHuyen = (event.target as HTMLSelectElement).value;
-    this.apiXa.getListByMaHuyenMaTinh(this.selectedMaTinh, selectedMaHuyen).subscribe(
-      res=>{
-        this.xaList=res.items;
-      }
-    )
-  }
-  loadFilter() {
-    this.apiXa.getListByFilter(this.filter,this.skipCount,this.maxResultCount).subscribe(
-      res=>{
-        this.xaList=res.items
-      }
-    )
+    this.selectedMaHuyen = (event.target as HTMLSelectElement).value;
+    this.loadList()
   }
 
   //control form
-
   edit(itemXa: any) {
     this.selectedXa=itemXa;
     this.showform=true
@@ -106,26 +101,19 @@ export class XaComponent implements OnInit{
   delete(id:number) {
     this.apiXa.delete(id).subscribe(
       res=>{
-        console.log('xoa thanh cong');
         this.loadList();
       }
     )
   }
   prevPage() {
-    if(this.skipCount>0){
-      this.skipCount-=this.maxResultCount
-      this.loadList()
+      this.skipCount -= this.maxResultCount;
+      this.loadList();
       this.currentPage-=1
-    }
-  }
 
+  }
   nextPage() {
     this.skipCount+=this.maxResultCount
     this.loadList()
     this.currentPage+=1
-
   }
-
-
-
 }

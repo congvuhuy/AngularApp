@@ -23,13 +23,13 @@ export class HuyenFormComponent implements OnInit{
       tenHuyen:['',Validators.required],
       maTinh:['',Validators.required],
       cap:['',Validators.required],
-      isActive:null,
+      isActive:true,
       id:[0]
     });
   }
 
   ngOnInit(): void {
-    this.apiTinhService.getFullList().subscribe(
+    this.apiTinhService.getList('',0,1000).subscribe(
       res=>{
         this.listSelectTinh=res.items
       },
